@@ -2,30 +2,27 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <silent> <Plug>(fzf-maps-i) :call fzf#vim#maps('i', 0)
-inoremap <expr> <Plug>(fzf-complete-buffer-line) fzf#vim#complete#buffer_line()
-inoremap <expr> <Plug>(fzf-complete-line) fzf#vim#complete#line()
-inoremap <expr> <Plug>(fzf-complete-file-ag) fzf#vim#complete#path('ag -l -g ""')
-inoremap <expr> <Plug>(fzf-complete-file) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -type f -print -o -type l -print | sed 's:^..::'")
-inoremap <expr> <Plug>(fzf-complete-path) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -print | sed '1d;s:^..::'")
-inoremap <expr> <Plug>(fzf-complete-word) fzf#vim#complete#word()
+imap <Nul> <C-Space>
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <silent> <Plug>_ =deoplete#mapping#_complete()
+inoremap <silent> <F10> :silent call Run(&ft)
 inoremap <C-F11> :Maximize
 inoremap <F11> :Fullscreen
 inoremap <F6> :Open
-inoremap <silent> <C-End> =g:MatchemRepeatFixupFlush("<c-end>")<C-End>
-inoremap <silent> <End> =g:MatchemRepeatFixupFlush("<end>")<End>
 inoremap <silent> <PageUp> =g:MatchemRepeatFixupFlush("<pageup>")<PageUp>
 inoremap <silent> <Home> =g:MatchemRepeatFixupFlush("<home>")<Home>
 inoremap <silent> <C-Down> =g:MatchemRepeatFixupFlush("<c-down>")<C-Down>
 inoremap <silent> <S-Right> =g:MatchemRepeatFixupFlush("<s-right>")<S-Right>
-inoremap <silent> <C-Home> =g:MatchemRepeatFixupFlush("<c-home>")<C-Home>
+inoremap <silent> <End> =g:MatchemRepeatFixupFlush("<end>")<End>
 inoremap <silent> <PageDown> =g:MatchemRepeatFixupFlush("<pagedown>")<PageDown>
-inoremap <silent> <Up> =g:MatchemRepeatFixupFlush("<up>")<Up>
-inoremap <silent> <Down> =g:MatchemRepeatFixupFlush("<down>")<Down>
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <silent> <Right> =g:MatchemRepeatFixupFlush("<right>")<Right>
 inoremap <silent> <S-Up> =g:MatchemRepeatFixupFlush("<s-up>")<S-Up>
 inoremap <silent> <C-Right> =g:MatchemRepeatFixupFlush("<c-right>")<C-Right>
 inoremap <silent> <S-Left> =g:MatchemRepeatFixupFlush("<s-left>")<S-Left>
+inoremap <silent> <C-Home> =g:MatchemRepeatFixupFlush("<c-home>")<C-Home>
+inoremap <silent> <C-End> =g:MatchemRepeatFixupFlush("<c-end>")<C-End>
 inoremap <silent> <C-Up> =g:MatchemRepeatFixupFlush("<c-up>")<C-Up>
 inoremap <silent> <C-Left> =g:MatchemRepeatFixupFlush("<c-left>")<C-Left>
 inoremap <silent> <S-Down> =g:MatchemRepeatFixupFlush("<s-down>")<S-Down>
@@ -35,24 +32,26 @@ inoremap <silent> <F25> :silent doautocmd <nomodeline> FocusGained %
 inoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
 inoremap <silent> <C-Tab> =UltiSnips#ListSnippets()
+inoremap <silent> <C-Space> =UltiSnips#ExpandSnippet()
+map! <D-v> *
 nnoremap <silent>  :TmuxNavigateLeft
 snoremap <silent>  c
-xnoremap <silent> 	 :call UltiSnips#SaveLastVisualSelection()gvs
-snoremap <silent> 	 :call UltiSnips#ExpandSnippet()
-snoremap <silent> <NL> :call UltiSnips#JumpForwards()
 nnoremap <silent> <NL> :TmuxNavigateDown
 nnoremap <silent>  :TmuxNavigateUp
 nnoremap <silent>  :TmuxNavigateRight
-map  :NERDTreeToggle
+nmap  :NERDTreeToggle
+xmap  :NERDTreeToggle
+omap  :NERDTreeToggle
 map  :tabnew
 map  :NERDTreeFind
 nnoremap <silent>  :CtrlP
 snoremap  "_c
 nmap  :NERDTreeoggle
 nnoremap <silent>  :TmuxNavigatePrevious
-nmap - <Plug>VinegarUp
 nmap ;n :call ToggleNerdTree()
-map Q gq
+nmap Q gq
+xmap Q gq
+omap Q gq
 nnoremap SD :!rm /Users/ges/.vim/.sessions/
 nnoremap SL :!ls /Users/ges/.vim/.sessions
 nnoremap SO :source /Users/ges/.vim/.sessions/
@@ -61,22 +60,16 @@ nnoremap SC :call Sessionist#CurrentSession()
 nnoremap SS :call Sessionist#SaveSession()
 nnoremap SN :call Sessionist#NewSession()
 xmap S <Plug>VSurround
-vmap [% [%m'gv``
 nmap [C 9999[c
 nmap [c <Plug>(signify-prev-hunk)
-map \ps :call MvnPickInherits() 
-map \gs :call MvnFindInherits(expand("<cword>")) 
-map \fc :call MvnFindJavaClass() 
-map \bt :call MvnTagCurrentFile() 
-map \bp :call MvnInsertProjectTree() 
-map \be :call MvnBuildEnvSelection() 
-map \ds :call MvnDownloadJavaSource() 
-map \dd :call MvnDownloadJavadoc() 
-map \sd :call MvnOpenJavaDoc(g:mvn_javadocPath) 
-map \rt :call MvnRunJunit() 
-map \rd :call MvnDoDebug() 
-map \rj :call MvnJavacCompile() 
-map \rm :call MvnCompile() 
+nnoremap \d :YcmShowDetailedDiagnostic
+nmap \kt :VikubeTop
+nmap \ksvc :VikubeServiceList
+nmap \kpv :VikubePVList
+nmap \kpvc :VikubePVCList
+nmap \kpo :VikubePodList
+nmap \kno :VikubeNodeList
+nmap \kc :VikubeContextList
 nmap \ihn :IHN
 nmap \is :IHS:A
 nmap \ih :IHS
@@ -105,50 +98,13 @@ xmap \cc <Plug>NERDCommenterComment
 nmap \cc <Plug>NERDCommenterComment
 nnoremap <silent> \b :CommandTBuffer
 nnoremap <silent> \t :CommandT
-vmap ]% ]%m'gv``
-vmap ]f :call PythonDec("function", 1)
-nmap ]f :call PythonDec("function", 1)
-omap ]f :call PythonDec("function", 1)
-vmap ]F :call PythonDec("function", -1)
-nmap ]F :call PythonDec("function", -1)
-omap ]F :call PythonDec("function", -1)
-vmap ]j :call PythonDec("class", 1)
-nmap ]j :call PythonDec("class", 1)
-omap ]j :call PythonDec("class", 1)
-vmap ]J :call PythonDec("class", -1)
-nmap ]J :call PythonDec("class", -1)
-omap ]J :call PythonDec("class", -1)
-map ]<Down> :call PythonNextLine(1)
-map ]<Up> :call PythonNextLine(-1)
-map ]d :call PythonSelectObject("function")
-vmap ]u :call PythonUncommentSelection()
-nmap ]u :call PythonUncommentSelection()
-omap ]u :call PythonUncommentSelection()
-vmap ]# :call PythonCommentSelection()
-nmap ]# :call PythonCommentSelection()
-omap ]# :call PythonCommentSelection()
-vmap ]> >
-nmap ]> ]tV]e>
-omap ]> ]tV]e>
-vmap ]< <
-nmap ]< ]tV]e<
-omap ]< ]tV]e<
-map ]v ]tV]e
-vmap ]e :PEoBm'gv``
-nmap ]e :PEoB
-omap ]e :PEoB
-vmap ]t :PBOBm'gv``
-nmap ]t :PBoB
-omap ]t :PBoB
 nmap ]C 9999]c
-map ]c :call PythonSelectObject("class")
-vmap a% [%v]%
+nmap ]c <Plug>(signify-next-hunk)
 nmap cS <Plug>CSurround
 nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
-vmap gx <Plug>NetrwBrowseXVis
+xmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
-noremap <silent> gf :call gf_ext#run_handler_for_file(expand("<cfile>"),v:count)
 xmap gS <Plug>VgSurround
 nmap ySS <Plug>YSsurround
 nmap ySs <Plug>YSsurround
@@ -157,11 +113,11 @@ nmap yS <Plug>YSurround
 nmap ys <Plug>Ysurround
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
-onoremap <silent> <Plug>(fzf-maps-o) :call fzf#vim#maps('o', 0)
-xnoremap <silent> <Plug>(fzf-maps-x) :call fzf#vim#maps('x', 0)
-nnoremap <silent> <Plug>(fzf-maps-n) :call fzf#vim#maps('n', 0)
-vnoremap <silent> <Plug>(calendar) :Calendar
-nnoremap <silent> <Plug>(calendar) :Calendar
+nnoremap <silent> <C-Right> :CmdResizeRight
+nnoremap <silent> <C-Up> :CmdResizeUp
+nnoremap <silent> <C-Down> :CmdResizeDown
+nnoremap <silent> <C-Left> :CmdResizeLeft
+nnoremap <silent> <F10> :silent call Run(&ft)
 noremap <silent> <Plug>VimCommanderToggle :cal VimCommanderToggle()
 nnoremap <C-F11> :Maximize
 nnoremap <F11> :Fullscreen
@@ -210,70 +166,114 @@ nnoremap <silent> <expr> <Plug>(signify-next-hunk) &diff ? ']c' : ":\call sy#j
 snoremap <silent> <Del> c
 snoremap <silent> <BS> c
 snoremap <silent> <C-Tab> :call UltiSnips#ListSnippets()
-nnoremap <SNR>22_: :=v:count ? v:count : ''
+xnoremap <silent> <C-Space> :call UltiSnips#SaveLastVisualSelection()gvs
+snoremap <silent> <C-Space> :call UltiSnips#ExpandSnippet()
+nnoremap <SNR>21_: :=v:count ? v:count : ''
 vnoremap <silent> <F11> :cal VimCommanderToggle()
 onoremap <silent> <F11> :cal VimCommanderToggle()
 noremap <silent> <F12> :call quickmenu#toggle(0)
+xmap <BS> "-d
+vmap <D-x> "*d
+vmap <D-c> "*y
+vmap <D-v> "-d"*P
+nmap <D-v> "*P
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-c>")
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-g>")
 imap S <Plug>ISurround
 imap s <Plug>Isurround
-inoremap <silent> 	 =UltiSnips#ExpandSnippet()
-inoremap <silent> <NL> =g:MatchemRepeatFixupFlush("<c-j>")=UltiSnips#JumpForwards()
+inoremap <expr> 	 pumvisible() ? "\" : "\	"
 inoremap <silent>  =g:MatchemExpandCr(1)
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-o>")
 imap  <Plug>Isurround
 inoremap  u
+imap  :stop!
 imap <silent> OC <Right>
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-[>")
+inoremap " ""<Left>
+inoremap ' ''<Left>
+inoremap ( ()<Left>
+inoremap [ []<Left>
 imap \ihn :IHN
 imap \is :IHS:A
 imap \ih :IHS
+inoremap {; {};O
+inoremap { {}O
+inoremap { {}<Left>
+cabbr phpx call Run('php')
+cabbr rubyx call Run('ruby')
+cabbr perlx call Run('perl')
+cabbr pyx call Run('python')
+cabbr shx call Run('bash')
+cabbr sx call Run(&ft)
 let &cpo=s:cpo_save
 unlet s:cpo_save
-set autoread
+set background=dark
 set backspace=indent,eol,start
 set backup
-set completefunc=VjdeCompletionFun
-set completeopt=menuone,longest,preview
+set completefunc=youcompleteme#CompleteFunc
+set completeopt=menuone
+set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
+set helplang=en
+set hidden
+set history=100
 set hlsearch
+set ignorecase
 set incsearch
-set modelines=0
 set mouse=a
 set omnifunc=syntaxcomplete#Complete
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/command-t,~/.vim/bundle/sparkup/vim/,~/.vim/bundle/newL9,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-json,~/.vim/bundle/vim-snippets,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/vim-lawrencium,~/.vim/bundle/tagbar,~/.vim/bundle/vim-signify,~/.vim/bundle/gundo.vim,~/.vim/bundle/vim-sleuth,~/.vim/bundle/vim-surround,~/.vim/bundle/nerdcommenter,~/.vim/bundle/open-browser.vim,~/.vim/bundle/a.vim,~/.vim/bundle/molokai,~/.vim/bundle/vim-colorschemes,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-markdown-preview,~/.vim/bundle/conque-shell,~/.vim/bundle/vim-tmux-navigator,~/.vim/bundle/vimux,~/.vim/bundle/python-mode,~/.vim/bundle/stackanswers.vim,~/.vim/bundle/vimsessionist,~/.vim/bundle/vim-tmux-focus-events,~/.vim/bundle/sessionman.vim,~/.vim/bundle/vim-websearch,~/.vim/bundle/Command-T,~/.vim/bundle/quickmenu.vim,~/.vim/bundle/vimterm,~/.vim/bundle/unite.vim,~/.vim/bundle/vim-autoswap,~/.vim/bundle/vim-eu
+set runtimepath=~/.vim,~/.vim/pack/plugins/start/vim-go,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/command-t,~/.vim/bundle/sparkup/vim/,~/.vim/bundle/newL9,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-json,~/.vim/bundle/vim-snippets,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/vim-lawrencium,~/.vim/bundle/tagbar,~/.vim/bundle/vim-signify,~/.vim/bundle/gundo.vim,~/.vim/bundle/vim-sleuth,~/.vim/bundle/vim-surround,~/.vim/bundle/nerdcommenter,~/.vim/bundle/open-browser.vim,~/.vim/bundle/a.vim,~/.vim/bundle/molokai,~/.vim/bundle/vim-colorschemes,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-markdown-preview,~/.vim/bundle/conque-shell,~/.vim/bundle/vim-tmux-navigator,~/.vim/bundle/vimux,~/.vim/bundle/python-mode,~/.vim/bundle/stackanswers.vim,~/.vim/bundle/vimsessionist,~/.vim/bundle/vim-tmux-focus-events,~/.vim/bundle/sessionman.vim,~/.vim/bundle/vim-websearch,~/.vim/bundle/Command-T,~/.vim/bundle/quickmenu.vim,~/.vim/bundle/vimterm,~/.vim/bundle/unite.vim,~/.vim/bundle/
+set shiftround
+set shiftwidth=4
+set shortmess=filnxtToOc
 set showcmd
+set smartindent
 set smarttab
+set noswapfile
 set tabstop=4
-set wildcharm=26
-set wildmenu
-set window=0
+set updatetime=200
+set window=57
+set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Work/Clients/FTpub/francetvpub
+cd ~/Work/aftech-product/datatask/install-cluster
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +71 AwsDeploy/keys/Dockerfile.old
-badd +14 AwsDeploy/keys/ipython_notebook_startup.sh
-badd +16 AwsDeploy/keys/Dockerfile
+badd +112 init_cluster.sh
+badd +0 mysql-stack/values.yaml
+badd +0 config_file
+badd +0 mysql-stack/templates/mysql.yaml
+badd +60 git-stack/templates/gitbox.yaml
+badd +22 git-stack/values.yaml
 argglobal
 silent! argdel *
+set stal=2
+edit init_cluster.sh
 set splitbelow splitright
+wincmd _ | wincmd |
+split
+1wincmd k
 wincmd _ | wincmd |
 vsplit
 1wincmd h
 wincmd w
+wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
-set winminheight=1 winheight=1 winminwidth=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 110 + 139) / 278)
-exe 'vert 2resize ' . ((&columns * 167 + 139) / 278)
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 44 + 29) / 58)
+exe 'vert 1resize ' . ((&columns * 26 + 92) / 184)
+exe '2resize ' . ((&lines * 44 + 29) / 58)
+exe 'vert 2resize ' . ((&columns * 157 + 92) / 184)
+exe '3resize ' . ((&lines * 10 + 29) / 58)
 argglobal
 enew
 file NERD_tree_1
@@ -282,9 +282,6 @@ nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap(g:NERDTreeMapA
 nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-o>")
 nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-q>")
 nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-s>")
-xmap <buffer> ! .!
-nmap <buffer> ! .!
-nmap <buffer> - u
 nnoremap <buffer> <silent> ? :call nerdtree#ui_glue#invokeKeyMap("?")
 nnoremap <buffer> <silent> A :call nerdtree#ui_glue#invokeKeyMap("A")
 nnoremap <buffer> <silent> B :call nerdtree#ui_glue#invokeKeyMap("B")
@@ -319,7 +316,6 @@ nnoremap <buffer> <silent> s :call nerdtree#ui_glue#invokeKeyMap("s")
 nnoremap <buffer> <silent> t :call nerdtree#ui_glue#invokeKeyMap("t")
 nnoremap <buffer> <silent> u :call nerdtree#ui_glue#invokeKeyMap("u")
 nnoremap <buffer> <silent> x :call nerdtree#ui_glue#invokeKeyMap("x")
-nnoremap <buffer> ~ :edit ~/
 let s:cpo_save=&cpo
 set cpo&vim
 nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#ui_glue#invokeKeyMap("<2-LeftMouse>")
@@ -335,8 +331,11 @@ inoremap <buffer> <silent> { {=g:MatchemMatchStart()
 inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
 let &cpo=s:cpo_save
 unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
 setlocal noautoindent
 setlocal backupcopy=
+setlocal balloonexpr=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
@@ -351,7 +350,9 @@ setlocal colorcolumn=
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
-setlocal completefunc=VjdeCompletionFun
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -362,7 +363,7 @@ setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal noexpandtab
+setlocal expandtab
 if &filetype != 'nerdtree'
 setlocal filetype=nerdtree
 endif
@@ -383,7 +384,7 @@ setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
-setlocal imsearch=0
+setlocal imsearch=-1
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=
@@ -411,11 +412,13 @@ setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
 setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=8
+setlocal shiftwidth=4
 setlocal noshortname
 setlocal signcolumn=auto
-setlocal nosmartindent
+setlocal smartindent
 setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
@@ -431,6 +434,9 @@ endif
 setlocal tabstop=4
 setlocal tagcase=
 setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
 setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
@@ -441,100 +447,319 @@ setlocal nowrap
 setlocal wrapmargin=0
 wincmd w
 argglobal
-enew
-file NERD_tree_2
-nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-h>")
-nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap(g:NERDTreeMapActivateNode)
-nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-o>")
-nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-q>")
-nnoremap <buffer> <silent>  :call nerdtree#ui_glue#invokeKeyMap("<C-s>")
-xmap <buffer> ! .!
-nmap <buffer> ! .!
-nmap <buffer> - u
-nnoremap <buffer> <silent> ? :call nerdtree#ui_glue#invokeKeyMap("?")
-nnoremap <buffer> <silent> A :call nerdtree#ui_glue#invokeKeyMap("A")
-nnoremap <buffer> <silent> B :call nerdtree#ui_glue#invokeKeyMap("B")
-nnoremap <buffer> <silent> CD :call nerdtree#ui_glue#invokeKeyMap("CD")
-nnoremap <buffer> <silent> C :call nerdtree#ui_glue#invokeKeyMap("C")
-nnoremap <buffer> <silent> D :call nerdtree#ui_glue#invokeKeyMap("D")
-nnoremap <buffer> <silent> E :call nerdtree#ui_glue#invokeKeyMap("E")
-nnoremap <buffer> <silent> F :call nerdtree#ui_glue#invokeKeyMap("F")
-nnoremap <buffer> <silent> I :call nerdtree#ui_glue#invokeKeyMap("I")
-nnoremap <buffer> <silent> J :call nerdtree#ui_glue#invokeKeyMap("J")
-nnoremap <buffer> <silent> K :call nerdtree#ui_glue#invokeKeyMap("K")
-nnoremap <buffer> <silent> O :call nerdtree#ui_glue#invokeKeyMap("O")
-nnoremap <buffer> <silent> P :call nerdtree#ui_glue#invokeKeyMap("P")
-nnoremap <buffer> <silent> R :call nerdtree#ui_glue#invokeKeyMap("R")
-nnoremap <buffer> <silent> T :call nerdtree#ui_glue#invokeKeyMap("T")
-nnoremap <buffer> <silent> U :call nerdtree#ui_glue#invokeKeyMap("U")
-nnoremap <buffer> <silent> X :call nerdtree#ui_glue#invokeKeyMap("X")
-nnoremap <buffer> <silent> [c :call nerdtree#ui_glue#invokeKeyMap("[c")
-nnoremap <buffer> <silent> ]c :call nerdtree#ui_glue#invokeKeyMap("]c")
-nnoremap <buffer> <silent> cd :call nerdtree#ui_glue#invokeKeyMap("cd")
-nnoremap <buffer> <silent> e :call nerdtree#ui_glue#invokeKeyMap("e")
-nnoremap <buffer> <silent> f :call nerdtree#ui_glue#invokeKeyMap("f")
-nnoremap <buffer> <silent> gi :call nerdtree#ui_glue#invokeKeyMap("gi")
-nnoremap <buffer> <silent> gs :call nerdtree#ui_glue#invokeKeyMap("gs")
-nnoremap <buffer> <silent> i :call nerdtree#ui_glue#invokeKeyMap("i")
-nnoremap <buffer> <silent> m :call nerdtree#ui_glue#invokeKeyMap("m")
-nnoremap <buffer> <silent> o :call nerdtree#ui_glue#invokeKeyMap("o")
-nnoremap <buffer> <silent> p :call nerdtree#ui_glue#invokeKeyMap("p")
-nnoremap <buffer> <silent> q :call nerdtree#ui_glue#invokeKeyMap("q")
-nnoremap <buffer> <silent> r :call nerdtree#ui_glue#invokeKeyMap("r")
-nnoremap <buffer> <silent> s :call nerdtree#ui_glue#invokeKeyMap("s")
-nnoremap <buffer> <silent> t :call nerdtree#ui_glue#invokeKeyMap("t")
-nnoremap <buffer> <silent> u :call nerdtree#ui_glue#invokeKeyMap("u")
-nnoremap <buffer> <silent> x :call nerdtree#ui_glue#invokeKeyMap("x")
-nnoremap <buffer> ~ :edit ~/
 let s:cpo_save=&cpo
 set cpo&vim
-nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#ui_glue#invokeKeyMap("<2-LeftMouse>")
-nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#ui_glue#invokeKeyMap("<LeftRelease>")
-nnoremap <buffer> <silent> <MiddleRelease> :call nerdtree#ui_glue#invokeKeyMap("<MiddleRelease>")
+inoremap <buffer> <silent> <F9> :call BASH_Debugger()
+inoremap <buffer> <S-F9> :BashScriptArguments 
+inoremap <buffer> <silent> <M-F9> :call BASH_SyntaxCheck()
+inoremap <buffer> <silent> <C-F9> :call BASH_Run("n")
+nnoremap <buffer> <silent> <NL> i=BASH_JumpForward()
+nnoremap <buffer> "" ciW""P
+nnoremap <buffer> '' ciW''P
+nnoremap <buffer> <silent> \ntl :call mmtemplates#core#EditTemplateFiles(g:BASH_Templates,-1)
+xnoremap <buffer> <silent> \ntl :call mmtemplates#core#EditTemplateFiles(g:BASH_Templates,-1)
+onoremap <buffer> <silent> \ntl :call mmtemplates#core#EditTemplateFiles(g:BASH_Templates,-1)
+nnoremap <buffer> <silent> \nts :call mmtemplates#core#ChooseStyle(g:BASH_Templates,"!pick")
+xnoremap <buffer> <silent> \nts :call mmtemplates#core#ChooseStyle(g:BASH_Templates,"!pick")
+onoremap <buffer> <silent> \nts :call mmtemplates#core#ChooseStyle(g:BASH_Templates,"!pick")
+nnoremap <buffer> <silent> \ntr :call mmtemplates#core#ReadTemplates(g:BASH_Templates,"reload","all")
+xnoremap <buffer> <silent> \ntr :call mmtemplates#core#ReadTemplates(g:BASH_Templates,"reload","all")
+onoremap <buffer> <silent> \ntr :call mmtemplates#core#ReadTemplates(g:BASH_Templates,"reload","all")
+xnoremap <buffer> <silent> \pbr :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.BASH_REMATCH")
+nnoremap <buffer> <silent> \pbr :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.BASH_REMATCH")
+xnoremap <buffer> <silent> \ppc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.POSIX classes")
+nnoremap <buffer> <silent> \ppc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.POSIX classes")
+xnoremap <buffer> <silent> \pae :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.anything except","v")
+nnoremap <buffer> <silent> \pae :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.anything except")
+xnoremap <buffer> <silent> \peo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.exactly one","v")
+nnoremap <buffer> <silent> \peo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.exactly one")
+xnoremap <buffer> <silent> \pom :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.one or more","v")
+nnoremap <buffer> <silent> \pom :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.one or more")
+xnoremap <buffer> <silent> \pzm :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.zero or more","v")
+nnoremap <buffer> <silent> \pzm :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.zero or more")
+xnoremap <buffer> <silent> \pzo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.zero or one","v")
+nnoremap <buffer> <silent> \pzo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.zero or one")
+xnoremap <buffer> <silent> \ioh :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"IO-Redir.here-document","v")
+nnoremap <buffer> <silent> \ioh :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"IO-Redir.here-document")
+xnoremap <buffer> <silent> \ior :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"IO-Redir.redir")
+nnoremap <buffer> <silent> \ior :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"IO-Redir.redir")
+xnoremap <buffer> <silent> \bso :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Shopts")
+nnoremap <buffer> <silent> \bso :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Shopts")
+xnoremap <buffer> <silent> \bse :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Set")
+nnoremap <buffer> <silent> \bse :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Set")
+xnoremap <buffer> <silent> \bbu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Builtins")
+nnoremap <buffer> <silent> \bbu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Builtins")
+xnoremap <buffer> <silent> \ben :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Environment")
+nnoremap <buffer> <silent> \ben :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Environment")
+xnoremap <buffer> <silent> \bsp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"SpecParams")
+nnoremap <buffer> <silent> \bsp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"SpecParams")
+xnoremap <buffer> <silent> \bps :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"ParamSub")
+nnoremap <buffer> <silent> \bps :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"ParamSub")
+xnoremap <buffer> <silent> \tm :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.string matches regexp")
+nnoremap <buffer> <silent> \tm :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.string matches regexp")
+xnoremap <buffer> <silent> \tfd :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file descriptor is open, refers to a terminal, -t")
+nnoremap <buffer> <silent> \tfd :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file descriptor is open, refers to a terminal, -t")
+xnoremap <buffer> <silent> \tvs :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.variable has been set, -v")
+nnoremap <buffer> <silent> \tvs :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.variable has been set, -v")
+xnoremap <buffer> <silent> \toe :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.option is enabled, -o")
+nnoremap <buffer> <silent> \toe :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.option is enabled, -o")
+xnoremap <buffer> <silent> \ts :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.string comparison")
+nnoremap <buffer> <silent> \ts :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.string comparison")
+xnoremap <buffer> <silent> \tfc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file characteristics")
+nnoremap <buffer> <silent> \tfc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file characteristics")
+xnoremap <buffer> <silent> \tft :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file types")
+nnoremap <buffer> <silent> \tft :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file types")
+xnoremap <buffer> <silent> \tfp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file permissions")
+nnoremap <buffer> <silent> \tfp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file permissions")
+xnoremap <buffer> <silent> \ta :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.arithmetic tests")
+nnoremap <buffer> <silent> \ta :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.arithmetic tests")
+xnoremap <buffer> <silent> \sai :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array indices","v")
+nnoremap <buffer> <silent> \sai :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array indices")
+xnoremap <buffer> <silent> \san :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.no of element","v")
+nnoremap <buffer> <silent> \san :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.no of element")
+xnoremap <buffer> <silent> \ssa :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.subarray","v")
+nnoremap <buffer> <silent> \ssa :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.subarray")
+xnoremap <buffer> <silent> \sas :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array elements, string","v")
+nnoremap <buffer> <silent> \sas :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array elements, string")
+xnoremap <buffer> <silent> \saa :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array elements, all","v")
+nnoremap <buffer> <silent> \saa :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array elements, all")
+xnoremap <buffer> <silent> \sae :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array element","v")
+nnoremap <buffer> <silent> \sae :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array element")
+xnoremap <buffer> <silent> \sp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.printf","v")
+nnoremap <buffer> <silent> \sp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.printf")
+xnoremap <buffer> <silent> \se :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.echo","v")
+nnoremap <buffer> <silent> \se :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.echo")
+xnoremap <buffer> <silent> \sfu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.function","v")
+nnoremap <buffer> <silent> \sfu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.function")
+xnoremap <buffer> <silent> \sw :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.while","v")
+nnoremap <buffer> <silent> \sw :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.while")
+xnoremap <buffer> <silent> \su :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.until","v")
+nnoremap <buffer> <silent> \su :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.until")
+xnoremap <buffer> <silent> \ss :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.select","v")
+nnoremap <buffer> <silent> \ss :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.select")
+xnoremap <buffer> <silent> \sie :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.if-else","v")
+nnoremap <buffer> <silent> \sie :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.if-else")
+xnoremap <buffer> <silent> \si :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.if","v")
+nnoremap <buffer> <silent> \si :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.if")
+xnoremap <buffer> <silent> \sfo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.for","v")
+nnoremap <buffer> <silent> \sfo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.for")
+xnoremap <buffer> <silent> \sf :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.for-in","v")
+nnoremap <buffer> <silent> \sf :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.for-in")
+xnoremap <buffer> <silent> \sei :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.elif")
+nnoremap <buffer> <silent> \sei :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.elif")
+xnoremap <buffer> <silent> \sc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.case")
+nnoremap <buffer> <silent> \sc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.case")
+xnoremap <buffer> <silent> \cma :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.macros")
+nnoremap <buffer> <silent> \cma :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.macros")
+xnoremap <buffer> <silent> \ckc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.keyword comments")
+nnoremap <buffer> <silent> \ckc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.keyword comments")
+xnoremap <buffer> <silent> \css :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.script sections")
+nnoremap <buffer> <silent> \css :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.script sections")
+xnoremap <buffer> <silent> \ct :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.date+time")
+nnoremap <buffer> <silent> \ct :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.date+time")
+xnoremap <buffer> <silent> \cd :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.date")
+nnoremap <buffer> <silent> \cd :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.date")
+xnoremap <buffer> <silent> \ch :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.file header")
+nnoremap <buffer> <silent> \ch :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.file header")
+xnoremap <buffer> <silent> \cfu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.function")
+nnoremap <buffer> <silent> \cfu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.function")
+xnoremap <buffer> <silent> \cfr :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.frame")
+nnoremap <buffer> <silent> \cfr :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.frame")
+nnoremap <buffer> <silent> \hbs :call BASH_HelpBashSupport()
+xnoremap <buffer> <silent> \hbs :call BASH_HelpBashSupport()
+onoremap <buffer> <silent> \hbs :call BASH_HelpBashSupport()
+nnoremap <buffer> <silent> \hm :call BASH_help('man')
+xnoremap <buffer> <silent> \hm :call BASH_help('man')
+onoremap <buffer> <silent> \hm :call BASH_help('man')
+nnoremap <buffer> <silent> \hh :call BASH_help('help')
+xnoremap <buffer> <silent> \hh :call BASH_help('help')
+onoremap <buffer> <silent> \hh :call BASH_help('help')
+nnoremap <buffer> <silent> \hb :call BASH_help('bash')
+xnoremap <buffer> <silent> \hb :call BASH_help('bash')
+onoremap <buffer> <silent> \hb :call BASH_help('bash')
+nnoremap <buffer> <silent> \rs :call BASH_Settings()
+nnoremap <buffer> <silent> \rd :call BASH_Debugger()
+xnoremap <buffer> <silent> \rd :call BASH_Debugger()
+onoremap <buffer> <silent> \rd :call BASH_Debugger()
+nnoremap <buffer> <silent> \ro :call BASH_Toggle_Gvim_Xterm()
+xnoremap <buffer> <silent> \ro :call BASH_Toggle_Gvim_Xterm()
+onoremap <buffer> <silent> \ro :call BASH_Toggle_Gvim_Xterm()
+xnoremap <buffer> <silent> \rh :call BASH_Hardcopy("v")
+nnoremap <buffer> <silent> \rh :call BASH_Hardcopy("n")
+nnoremap <buffer> <silent> \re :call BASH_MakeScriptExecutable()
+xnoremap <buffer> <silent> \re :call BASH_MakeScriptExecutable()
+onoremap <buffer> <silent> \re :call BASH_MakeScriptExecutable()
+nnoremap <buffer> \rba :BashArguments 
+xnoremap <buffer> \rba :BashArguments 
+onoremap <buffer> \rba :BashArguments 
+nnoremap <buffer> \ra :BashScriptArguments 
+xnoremap <buffer> \ra :BashScriptArguments 
+onoremap <buffer> \ra :BashScriptArguments 
+nnoremap <buffer> <silent> \rco :call BASH_SyntaxCheckOptionsLocal()
+xnoremap <buffer> <silent> \rco :call BASH_SyntaxCheckOptionsLocal()
+onoremap <buffer> <silent> \rco :call BASH_SyntaxCheckOptionsLocal()
+nnoremap <buffer> <silent> \rc :call BASH_SyntaxCheck()
+xnoremap <buffer> <silent> \rc :call BASH_SyntaxCheck()
+onoremap <buffer> <silent> \rc :call BASH_SyntaxCheck()
+xnoremap <buffer> <silent> \rr :call BASH_Run("v")
+nnoremap <buffer> <silent> \rr :call BASH_Run("n")
+onoremap <buffer> <silent> \rr :call BASH_Run("n")
+nnoremap <buffer> <silent> \nv :call BASH_CodeSnippet("view")
+nnoremap <buffer> <silent> \ne :call BASH_CodeSnippet("edit")
+xnoremap <buffer> <silent> \nw :call BASH_CodeSnippet("writemarked")
+nnoremap <buffer> <silent> \nw :call BASH_CodeSnippet("write")
+nnoremap <buffer> <silent> \nr :call BASH_CodeSnippet("read")
+nnoremap <buffer> <silent> \cr :call BASH_remove_echo()j'
+xnoremap <buffer> <silent> \cr :call BASH_remove_echo()j'
+onoremap <buffer> <silent> \cr :call BASH_remove_echo()j'
+nnoremap <buffer> <silent> \ce :call BASH_echo_comment()j'
+xnoremap <buffer> <silent> \ce :call BASH_echo_comment()j'
+onoremap <buffer> <silent> \ce :call BASH_echo_comment()j'
+xnoremap <buffer> <silent> \cu :call BASH_CommentCode(0)
+nnoremap <buffer> <silent> \cu :call BASH_CommentCode(0)
+xnoremap <buffer> <silent> \cc :call BASH_CodeComment()
+nnoremap <buffer> <silent> \cc :call BASH_CodeComment()
+xnoremap <buffer> <silent> \cs :call BASH_GetLineEndCommCol()
+nnoremap <buffer> <silent> \cs :call BASH_GetLineEndCommCol()
+xnoremap <buffer> <silent> \cj :call BASH_AdjustLineEndComm()
+nnoremap <buffer> <silent> \cj :call BASH_AdjustLineEndComm()
+xnoremap <buffer> <silent> \cl :call BASH_EndOfLineComment()
+nnoremap <buffer> <silent> \cl :call BASH_EndOfLineComment()
+nnoremap <buffer> <F9> :!clear; chmod +x ./%; ./%
+vnoremap <buffer> <silent> <F9> :call BASH_Debugger()
+onoremap <buffer> <silent> <F9> :call BASH_Debugger()
+noremap <buffer> <S-F9> :BashScriptArguments 
+noremap <buffer> <silent> <M-F9> :call BASH_SyntaxCheck()
+vnoremap <buffer> <silent> <C-F9> :call BASH_Run("v")
+nnoremap <buffer> <silent> <C-F9> :call BASH_Run("n")
+onoremap <buffer> <silent> <C-F9> :call BASH_Run("n")
+inoremap <buffer> <silent> <NL> =BASH_JumpForward()
 inoremap <buffer> <silent> " "=g:MatchemMatchStart()
 inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
 inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
 inoremap <buffer> <silent> ) =g:MatchemMatchEnd(")")
 inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
+inoremap <buffer> <silent> \ntl :call mmtemplates#core#EditTemplateFiles(g:BASH_Templates,-1)
+inoremap <buffer> <silent> \nts :call mmtemplates#core#ChooseStyle(g:BASH_Templates,"!pick")
+inoremap <buffer> <silent> \ntr :call mmtemplates#core#ReadTemplates(g:BASH_Templates,"reload","all")
+inoremap <buffer> <silent> \pbr :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.BASH_REMATCH","i")
+inoremap <buffer> <silent> \ppc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.POSIX classes","i")
+inoremap <buffer> <silent> \pae :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.anything except","i")
+inoremap <buffer> <silent> \peo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.exactly one","i")
+inoremap <buffer> <silent> \pom :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.one or more","i")
+inoremap <buffer> <silent> \pzm :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.zero or more","i")
+inoremap <buffer> <silent> \pzo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"PatternMatching.zero or one","i")
+inoremap <buffer> <silent> \ioh :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"IO-Redir.here-document","i")
+inoremap <buffer> <silent> \ior :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"IO-Redir.redir","i")
+inoremap <buffer> <silent> \bso :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Shopts","i")
+inoremap <buffer> <silent> \bse :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Set","i")
+inoremap <buffer> <silent> \bbu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Builtins","i")
+inoremap <buffer> <silent> \ben :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Environment","i")
+inoremap <buffer> <silent> \bsp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"SpecParams","i")
+inoremap <buffer> <silent> \bps :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"ParamSub","i")
+inoremap <buffer> <silent> \tm :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.string matches regexp","i")
+inoremap <buffer> <silent> \tfd :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file descriptor is open, refers to a terminal, -t","i")
+inoremap <buffer> <silent> \tvs :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.variable has been set, -v","i")
+inoremap <buffer> <silent> \toe :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.option is enabled, -o","i")
+inoremap <buffer> <silent> \ts :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.string comparison","i")
+inoremap <buffer> <silent> \tfc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file characteristics","i")
+inoremap <buffer> <silent> \tft :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file types","i")
+inoremap <buffer> <silent> \tfp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.file permissions","i")
+inoremap <buffer> <silent> \ta :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Tests.arithmetic tests","i")
+inoremap <buffer> <silent> \sai :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array indices","i")
+inoremap <buffer> <silent> \san :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.no of element","i")
+inoremap <buffer> <silent> \ssa :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.subarray","i")
+inoremap <buffer> <silent> \sas :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array elements, string","i")
+inoremap <buffer> <silent> \saa :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array elements, all","i")
+inoremap <buffer> <silent> \sae :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.array element","i")
+inoremap <buffer> <silent> \sp :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.printf","i")
+inoremap <buffer> <silent> \se :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.echo","i")
+inoremap <buffer> <silent> \sfu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.function","i")
+inoremap <buffer> <silent> \sw :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.while","i")
+inoremap <buffer> <silent> \su :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.until","i")
+inoremap <buffer> <silent> \ss :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.select","i")
+inoremap <buffer> <silent> \sie :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.if-else","i")
+inoremap <buffer> <silent> \si :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.if","i")
+inoremap <buffer> <silent> \sfo :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.for","i")
+inoremap <buffer> <silent> \sf :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.for-in","i")
+inoremap <buffer> <silent> \sei :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.elif","i")
+inoremap <buffer> <silent> \sc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Statements.case","i")
+inoremap <buffer> <silent> \cma :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.macros","i")
+inoremap <buffer> <silent> \ckc :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.keyword comments","i")
+inoremap <buffer> <silent> \css :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.script sections","i")
+inoremap <buffer> <silent> \ct :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.date+time","i")
+inoremap <buffer> <silent> \cd :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.date","i")
+inoremap <buffer> <silent> \ch :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.file header","i")
+inoremap <buffer> <silent> \cfu :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.function","i")
+inoremap <buffer> <silent> \cfr :call mmtemplates#core#InsertTemplate(g:BASH_Templates,"Comments.frame","i")
+inoremap <buffer> <silent> \hbs :call BASH_HelpBashSupport()
+inoremap <buffer> <silent> \hm :call BASH_help('man')
+inoremap <buffer> <silent> \hh :call BASH_help('help')
+inoremap <buffer> <silent> \hb :call BASH_help('bash')
+inoremap <buffer> <silent> \rd :call BASH_Debugger()
+inoremap <buffer> <silent> \ro :call BASH_Toggle_Gvim_Xterm()
+inoremap <buffer> <silent> \re :call BASH_MakeScriptExecutable()
+inoremap <buffer> \rba :BashArguments 
+inoremap <buffer> \ra :BashScriptArguments 
+inoremap <buffer> <silent> \rco :call BASH_SyntaxCheckOptionsLocal()
+inoremap <buffer> <silent> \rc :call BASH_SyntaxCheck()
+inoremap <buffer> <silent> \rr :call BASH_Run("n")
+inoremap <buffer> <silent> \nv :call BASH_CodeSnippet("view")
+inoremap <buffer> <silent> \ne :call BASH_CodeSnippet("edit")
+inoremap <buffer> <silent> \nw :call BASH_CodeSnippet("write")
+inoremap <buffer> <silent> \nr :call BASH_CodeSnippet("read")
+inoremap <buffer> <silent> \cr :call BASH_remove_echo()j'
+inoremap <buffer> <silent> \ce :call BASH_echo_comment()j'
+inoremap <buffer> <silent> \cu :call BASH_CommentCode(0)
+inoremap <buffer> <silent> \cc :call BASH_CodeComment()
+inoremap <buffer> <silent> \cs :call BASH_GetLineEndCommCol()
+inoremap <buffer> <silent> \cj :call BASH_AdjustLineEndComm()
+inoremap <buffer> <silent> \cl :call BASH_EndOfLineComment()
 inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
+inoremap <buffer> <silent> ` `=g:MatchemMatchStart()
 inoremap <buffer> <silent> { {=g:MatchemMatchStart()
 inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
 let &cpo=s:cpo_save
 unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
 setlocal noautoindent
 setlocal backupcopy=
+setlocal balloonexpr=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
-setlocal bufhidden=hide
-setlocal nobuflisted
-setlocal buftype=nofile
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
 setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*%s*/
+setlocal commentstring=#%s
 setlocal complete=.,w,b,u,t,i
-setlocal completefunc=VjdeCompletionFun
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#CompleteFunc
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-setlocal cursorline
+setlocal nocursorline
 setlocal define=
-setlocal dictionary=
+setlocal dictionary=~/.vim/bundle/bash-support.vim/bash-support/wordlists/bash-keywords.list
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal noexpandtab
-if &filetype != 'nerdtree'
-setlocal filetype=nerdtree
+setlocal expandtab
+if &filetype != 'sh'
+setlocal filetype=sh
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
-setlocal nofoldenable
+setlocal foldenable
 setlocal foldexpr=0
 setlocal foldignore=#
 setlocal foldlevel=0
@@ -549,7 +774,139 @@ setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
-setlocal imsearch=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetShIndent()
+setlocal indentkeys=0{,0},!^F,o,O,e,=then,=do,=else,=elif,=esac,=fi,=fin,=fil,=done
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=syntaxcomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal signcolumn=auto
+setlocal smartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(2)
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'sh'
+setlocal syntax=sh
+endif
+setlocal tabstop=4
+setlocal tagcase=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 147 - ((31 * winheight(0) + 22) / 44)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+147
+normal! 012|
+wincmd w
+argglobal
+enew
+inoremap <buffer> <silent> " "=g:MatchemMatchStart()
+inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
+inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
+inoremap <buffer> <silent> ) =g:MatchemMatchEnd(")")
+inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
+inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
+inoremap <buffer> <silent> { {=g:MatchemMatchStart()
+inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=wipe
+setlocal buflisted
+setlocal buftype=quickfix
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#CompleteFunc
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'qf'
+setlocal filetype=qf
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=tcq
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=
@@ -577,8 +934,149 @@ setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
 setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=8
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal signcolumn=auto
+setlocal smartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(3)
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'qf'
+setlocal syntax=qf
+endif
+setlocal tabstop=4
+setlocal tagcase=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal winfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+wincmd w
+3wincmd w
+exe '1resize ' . ((&lines * 44 + 29) / 58)
+exe 'vert 1resize ' . ((&columns * 26 + 92) / 184)
+exe '2resize ' . ((&lines * 44 + 29) / 58)
+exe 'vert 2resize ' . ((&columns * 157 + 92) / 184)
+exe '3resize ' . ((&lines * 10 + 29) / 58)
+tabedit mysql-stack/templates/mysql.yaml
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+inoremap <buffer> <silent> " "=g:MatchemMatchStart()
+inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
+inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
+inoremap <buffer> <silent> ) =g:MatchemMatchEnd(")")
+inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
+inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
+inoremap <buffer> <silent> { {=g:MatchemMatchStart()
+inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=:#
+setlocal commentstring=#\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#CompleteFunc
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'yaml'
+setlocal filetype=yaml
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetYAMLIndent(v:lnum)
+setlocal indentkeys=!^F,o,O,0#,0},0],<:>,0-
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=syntaxcomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
 setlocal noshortname
 setlocal signcolumn=auto
 setlocal nosmartindent
@@ -587,34 +1085,458 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal statusline=%!airline#statusline(2)
+setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'nerdtree'
-setlocal syntax=nerdtree
+if &syntax != 'yaml'
+setlocal syntax=yaml
 endif
 setlocal tabstop=4
 setlocal tagcase=
 setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
 setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
 setlocal nowinfixheight
 setlocal nowinfixwidth
-setlocal nowrap
+setlocal wrap
 setlocal wrapmargin=0
-wincmd w
-2wincmd w
-exe 'vert 1resize ' . ((&columns * 110 + 139) / 278)
-exe 'vert 2resize ' . ((&columns * 167 + 139) / 278)
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 28) / 56)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+tabedit mysql-stack/templates/mysql.yaml
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+inoremap <buffer> <silent> " "=g:MatchemMatchStart()
+inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
+inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
+inoremap <buffer> <silent> ) =g:MatchemMatchEnd(")")
+inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
+inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
+inoremap <buffer> <silent> { {=g:MatchemMatchStart()
+inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=:#
+setlocal commentstring=#\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#CompleteFunc
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'yaml'
+setlocal filetype=yaml
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetYAMLIndent(v:lnum)
+setlocal indentkeys=!^F,o,O,0#,0},0],<:>,0-
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=syntaxcomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(1)
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'yaml'
+setlocal syntax=yaml
+endif
+setlocal tabstop=4
+setlocal tagcase=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 46 - ((45 * winheight(0) + 28) / 56)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+46
+normal! 013|
+tabedit config_file
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+inoremap <buffer> <silent> " "=g:MatchemMatchStart()
+inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
+inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
+inoremap <buffer> <silent> ) =g:MatchemMatchEnd(")")
+inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
+inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
+inoremap <buffer> <silent> { {=g:MatchemMatchStart()
+inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#CompleteFunc
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != ''
+setlocal filetype=
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=tcq
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=syntaxcomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal signcolumn=auto
+setlocal smartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(1)
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != ''
+setlocal syntax=
+endif
+setlocal tabstop=4
+setlocal tagcase=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 8 - ((7 * winheight(0) + 28) / 56)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+8
+normal! 013|
+tabedit mysql-stack/values.yaml
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+inoremap <buffer> <silent> " "=g:MatchemMatchStart()
+inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
+inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
+inoremap <buffer> <silent> ) =g:MatchemMatchEnd(")")
+inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
+inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
+inoremap <buffer> <silent> { {=g:MatchemMatchStart()
+inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=:#
+setlocal commentstring=#\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#CompleteFunc
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'yaml'
+setlocal filetype=yaml
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetYAMLIndent(v:lnum)
+setlocal indentkeys=!^F,o,O,0#,0},0],<:>,0-
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=syntaxcomplete#Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(1)
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'yaml'
+setlocal syntax=yaml
+endif
+setlocal tabstop=4
+setlocal tagcase=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 16 - ((15 * winheight(0) + 28) / 56)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+16
+normal! 022|
 tabnext 1
-if exists('s:wipebuf')
+set stal=1
+if exists('s:wipebuf') && s:wipebuf != bufnr('%')
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=1 winwidth=20 shortmess=filnxtToO
+set winheight=1 winwidth=20 shortmess=filnxtToOc
 set winminheight=1 winminwidth=1
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if file_readable(s:sx)

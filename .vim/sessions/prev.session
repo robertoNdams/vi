@@ -2,43 +2,40 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <silent> <Plug>(fzf-maps-i) :call fzf#vim#maps('i', 0)
-inoremap <expr> <Plug>(fzf-complete-buffer-line) fzf#vim#complete#buffer_line()
-inoremap <expr> <Plug>(fzf-complete-line) fzf#vim#complete#line()
-inoremap <expr> <Plug>(fzf-complete-file-ag) fzf#vim#complete#path('ag -l -g ""')
-inoremap <expr> <Plug>(fzf-complete-file) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -type f -print -o -type l -print | sed 's:^..::'")
-inoremap <expr> <Plug>(fzf-complete-path) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -print | sed '1d;s:^..::'")
-inoremap <expr> <Plug>(fzf-complete-word) fzf#vim#complete#word()
+imap <Nul> <C-Space>
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <silent> <Plug>_ =deoplete#mapping#_complete()
+inoremap <silent> <F10> :silent call Run(&ft)
 inoremap <C-F11> :Maximize
 inoremap <F11> :Fullscreen
 inoremap <F6> :Open
-inoremap <silent> <C-End> =g:MatchemRepeatFixupFlush("<c-end>")<C-End>
-inoremap <silent> <End> =g:MatchemRepeatFixupFlush("<end>")<End>
 inoremap <silent> <PageUp> =g:MatchemRepeatFixupFlush("<pageup>")<PageUp>
 inoremap <silent> <Home> =g:MatchemRepeatFixupFlush("<home>")<Home>
 inoremap <silent> <C-Down> =g:MatchemRepeatFixupFlush("<c-down>")<C-Down>
 inoremap <silent> <S-Right> =g:MatchemRepeatFixupFlush("<s-right>")<S-Right>
-inoremap <silent> <C-Home> =g:MatchemRepeatFixupFlush("<c-home>")<C-Home>
+inoremap <silent> <End> =g:MatchemRepeatFixupFlush("<end>")<End>
 inoremap <silent> <PageDown> =g:MatchemRepeatFixupFlush("<pagedown>")<PageDown>
-inoremap <silent> <Up> =g:MatchemRepeatFixupFlush("<up>")<Up>
-inoremap <silent> <Down> =g:MatchemRepeatFixupFlush("<down>")<Down>
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 inoremap <silent> <Right> =g:MatchemRepeatFixupFlush("<right>")<Right>
 inoremap <silent> <S-Up> =g:MatchemRepeatFixupFlush("<s-up>")<S-Up>
 inoremap <silent> <C-Right> =g:MatchemRepeatFixupFlush("<c-right>")<C-Right>
 inoremap <silent> <S-Left> =g:MatchemRepeatFixupFlush("<s-left>")<S-Left>
+inoremap <silent> <C-Home> =g:MatchemRepeatFixupFlush("<c-home>")<C-Home>
+inoremap <silent> <C-End> =g:MatchemRepeatFixupFlush("<c-end>")<C-End>
 inoremap <silent> <C-Up> =g:MatchemRepeatFixupFlush("<c-up>")<C-Up>
 inoremap <silent> <C-Left> =g:MatchemRepeatFixupFlush("<c-left>")<C-Left>
 inoremap <silent> <S-Down> =g:MatchemRepeatFixupFlush("<s-down>")<S-Down>
 inoremap <silent> <Left> =g:MatchemRepeatFixupFlush("<left>")<Left>
 inoremap <silent> <Del> =g:MatchemMatchDelete("\<del>")
-inoremap <silent> <BS> =g:MatchemMatchBackspace("\<bs>")
+inoremap <silent> <F25> :silent doautocmd <nomodeline> FocusGained %
+inoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
 inoremap <silent> <C-Tab> =UltiSnips#ListSnippets()
+inoremap <silent> <C-Space> =UltiSnips#ExpandSnippet()
+map! <D-v> *
 nnoremap <silent>  :TmuxNavigateLeft
 snoremap <silent>  c
-xnoremap <silent> 	 :call UltiSnips#SaveLastVisualSelection()gvs
-snoremap <silent> 	 :call UltiSnips#ExpandSnippet()
-snoremap <silent> <NL> :call UltiSnips#JumpForwards()
 nnoremap <silent> <NL> :TmuxNavigateDown
 nnoremap <silent>  :TmuxNavigateUp
 nnoremap <silent>  :TmuxNavigateRight
@@ -49,7 +46,6 @@ nnoremap <silent>  :CtrlP
 snoremap  "_c
 nmap  :NERDTreeoggle
 nnoremap <silent>  :TmuxNavigatePrevious
-nmap - <Plug>VinegarUp
 nmap ;n :call ToggleNerdTree()
 map Q gq
 nnoremap SD :!rm /Users/ges/.vim/.sessions/
@@ -60,22 +56,17 @@ nnoremap SC :call Sessionist#CurrentSession()
 nnoremap SS :call Sessionist#SaveSession()
 nnoremap SN :call Sessionist#NewSession()
 xmap S <Plug>VSurround
-vmap [% [%m'gv``
 nmap [C 9999[c
 nmap [c <Plug>(signify-prev-hunk)
-map \ps :call MvnPickInherits() 
-map \gs :call MvnFindInherits(expand("<cword>")) 
-map \fc :call MvnFindJavaClass() 
-map \bt :call MvnTagCurrentFile() 
-map \bp :call MvnInsertProjectTree() 
-map \be :call MvnBuildEnvSelection() 
-map \ds :call MvnDownloadJavaSource() 
-map \dd :call MvnDownloadJavadoc() 
-map \sd :call MvnOpenJavaDoc(g:mvn_javadocPath) 
-map \rt :call MvnRunJunit() 
-map \rd :call MvnDoDebug() 
-map \rj :call MvnJavacCompile() 
-map \rm :call MvnCompile() 
+nmap <silent> \f :call OpenBSD_Style()
+nnoremap \d :YcmShowDetailedDiagnostic
+nmap \kt :VikubeTop
+nmap \ksvc :VikubeServiceList
+nmap \kpv :VikubePVList
+nmap \kpvc :VikubePVCList
+nmap \kpo :VikubePodList
+nmap \kno :VikubeNodeList
+nmap \kc :VikubeContextList
 nmap \ihn :IHN
 nmap \is :IHS:A
 nmap \ih :IHS
@@ -104,50 +95,13 @@ xmap \cc <Plug>NERDCommenterComment
 nmap \cc <Plug>NERDCommenterComment
 nnoremap <silent> \b :CommandTBuffer
 nnoremap <silent> \t :CommandT
-vmap ]% ]%m'gv``
-vmap ]f :call PythonDec("function", 1)
-nmap ]f :call PythonDec("function", 1)
-omap ]f :call PythonDec("function", 1)
-vmap ]F :call PythonDec("function", -1)
-nmap ]F :call PythonDec("function", -1)
-omap ]F :call PythonDec("function", -1)
-vmap ]j :call PythonDec("class", 1)
-nmap ]j :call PythonDec("class", 1)
-omap ]j :call PythonDec("class", 1)
-vmap ]J :call PythonDec("class", -1)
-nmap ]J :call PythonDec("class", -1)
-omap ]J :call PythonDec("class", -1)
-map ]<Down> :call PythonNextLine(1)
-map ]<Up> :call PythonNextLine(-1)
-map ]d :call PythonSelectObject("function")
-vmap ]u :call PythonUncommentSelection()
-nmap ]u :call PythonUncommentSelection()
-omap ]u :call PythonUncommentSelection()
-vmap ]# :call PythonCommentSelection()
-nmap ]# :call PythonCommentSelection()
-omap ]# :call PythonCommentSelection()
-vmap ]> >
-nmap ]> ]tV]e>
-omap ]> ]tV]e>
-vmap ]< <
-nmap ]< ]tV]e<
-omap ]< ]tV]e<
-map ]v ]tV]e
-vmap ]e :PEoBm'gv``
-nmap ]e :PEoB
-omap ]e :PEoB
-vmap ]t :PBOBm'gv``
-nmap ]t :PBoB
-omap ]t :PBoB
 nmap ]C 9999]c
-map ]c :call PythonSelectObject("class")
-vmap a% [%v]%
+nmap ]c <Plug>(signify-next-hunk)
 nmap cS <Plug>CSurround
 nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
-noremap <silent> gf :call gf_ext#run_handler_for_file(expand("<cfile>"),v:count)
 xmap gS <Plug>VgSurround
 nmap ySS <Plug>YSsurround
 nmap ySs <Plug>YSsurround
@@ -156,15 +110,21 @@ nmap yS <Plug>YSurround
 nmap ys <Plug>Ysurround
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
-onoremap <silent> <Plug>(fzf-maps-o) :call fzf#vim#maps('o', 0)
-xnoremap <silent> <Plug>(fzf-maps-x) :call fzf#vim#maps('x', 0)
-nnoremap <silent> <Plug>(fzf-maps-n) :call fzf#vim#maps('n', 0)
-vnoremap <silent> <Plug>(calendar) :Calendar
-nnoremap <silent> <Plug>(calendar) :Calendar
+nnoremap <silent> <C-Right> :CmdResizeRight
+nnoremap <silent> <C-Up> :CmdResizeUp
+nnoremap <silent> <C-Down> :CmdResizeDown
+nnoremap <silent> <C-Left> :CmdResizeLeft
+nnoremap <silent> <F10> :silent call Run(&ft)
 noremap <silent> <Plug>VimCommanderToggle :cal VimCommanderToggle()
 nnoremap <C-F11> :Maximize
-nnoremap <F11> :Fullscreen
+noremap <silent> <F11> :cal VimCommanderToggle()
 nnoremap <F6> :Open
+vnoremap <silent> <F25> :silent doautocmd <nomodeline> FocusGained %gv
+vnoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %gv
+onoremap <silent> <F25> :silent doautocmd <nomodeline> FocusGained %
+onoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %
+nnoremap <silent> <F25> :doautocmd <nomodeline> FocusGained %
+nnoremap <silent> <F24> :silent doautocmd <nomodeline> FocusLost %
 xnoremap <silent> <Plug>(openbrowser-smart-search) :call openbrowser#_keymapping_smart_search('v')
 nnoremap <silent> <Plug>(openbrowser-smart-search) :call openbrowser#_keymapping_smart_search('n')
 xnoremap <silent> <Plug>(openbrowser-search) :call openbrowser#_keymapping_search('v')
@@ -203,63 +163,106 @@ nnoremap <silent> <expr> <Plug>(signify-next-hunk) &diff ? ']c' : ":\call sy#j
 snoremap <silent> <Del> c
 snoremap <silent> <BS> c
 snoremap <silent> <C-Tab> :call UltiSnips#ListSnippets()
-nnoremap <SNR>22_: :=v:count ? v:count : ''
-vnoremap <silent> <F11> :cal VimCommanderToggle()
-onoremap <silent> <F11> :cal VimCommanderToggle()
+xnoremap <silent> <C-Space> :call UltiSnips#SaveLastVisualSelection()gvs
+snoremap <silent> <C-Space> :call UltiSnips#ExpandSnippet()
+nnoremap <SNR>21_: :=v:count ? v:count : ''
 noremap <silent> <F12> :call quickmenu#toggle(0)
+xmap <BS> "-d
+vmap <D-x> "*d
+vmap <D-c> "*y
+vmap <D-v> "-d"*P
+nmap <D-v> "*P
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-c>")
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-g>")
 imap S <Plug>ISurround
 imap s <Plug>Isurround
-inoremap <silent> 	 =UltiSnips#ExpandSnippet()
-inoremap <silent> <NL> =g:MatchemRepeatFixupFlush("<c-j>")=UltiSnips#JumpForwards()
+inoremap <expr> 	 pumvisible() ? "\" : "\	"
 inoremap <silent>  =g:MatchemExpandCr(1)
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-o>")
 imap  <Plug>Isurround
 inoremap  u
+imap  :stop!
 imap <silent> OC <Right>
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-[>")
+inoremap " ""<Left>
+inoremap ' ''<Left>
+inoremap ( ()<Left>
+inoremap [ []<Left>
 imap \ihn :IHN
 imap \is :IHS:A
 imap \ih :IHS
+inoremap {; {};O
+inoremap { {}O
+inoremap { {}<Left>
+cabbr phpx call Run('php')
+cabbr rubyx call Run('ruby')
+cabbr perlx call Run('perl')
+cabbr pyx call Run('python')
+cabbr shx call Run('bash')
+cabbr sx call Run(&ft)
 let &cpo=s:cpo_save
 unlet s:cpo_save
-set autoread
+set background=dark
 set backspace=indent,eol,start
 set backup
-set completefunc=VjdeCompletionFun
-set completeopt=menuone,longest,preview
+set completefunc=youcompleteme#CompleteFunc
+set completeopt=longest,menuone
+set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
+set helplang=en
+set hidden
+set history=100
 set hlsearch
+set ignorecase
 set incsearch
-set modelines=0
 set mouse=a
 set omnifunc=syntaxcomplete#Complete
 set ruler
 set runtimepath=~/.vim,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/command-t,~/.vim/bundle/sparkup/vim/,~/.vim/bundle/newL9,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-json,~/.vim/bundle/vim-snippets,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/vim-lawrencium,~/.vim/bundle/tagbar,~/.vim/bundle/vim-signify,~/.vim/bundle/gundo.vim,~/.vim/bundle/vim-sleuth,~/.vim/bundle/vim-surround,~/.vim/bundle/nerdcommenter,~/.vim/bundle/open-browser.vim,~/.vim/bundle/a.vim,~/.vim/bundle/molokai,~/.vim/bundle/vim-colorschemes,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-markdown-preview,~/.vim/bundle/conque-shell,~/.vim/bundle/vim-tmux-navigator,~/.vim/bundle/vimux,~/.vim/bundle/python-mode,~/.vim/bundle/stackanswers.vim,~/.vim/bundle/vimsessionist,~/.vim/bundle/vim-tmux-focus-events,~/.vim/bundle/sessionman.vim,~/.vim/bundle/vim-websearch,~/.vim/bundle/Command-T,~/.vim/bundle/quickmenu.vim,~/.vim/bundle/vimterm,~/.vim/bundle/unite.vim,~/.vim/bundle/vim-autoswap,~/.vim/bundle/vim-eu
+set shiftround
+set shiftwidth=4
 set showcmd
+set smartindent
 set smarttab
+set noswapfile
 set tabstop=4
-set wildcharm=26
-set wildmenu
-set window=0
+set textwidth=78
+set updatetime=200
+set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Work/Clients/FTpub/francetvpub
+silent tabonly
+cd ~/
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
+badd +0 .vimrc
 argglobal
 silent! argdel *
+edit .vimrc
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
-set winminheight=1 winheight=1 winminwidth=1 winwidth=1
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-enew
+vnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+nnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+vnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf\%[unction]\>', "bW")
+nnoremap <buffer> <silent> [] m':call search('^\s*endf\%[unction]\>', "bW")
+vnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
+nnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
+vnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+nnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+vnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf\%[unction]\>', "W")
+nnoremap <buffer> <silent> ][ m':call search('^\s*endf\%[unction]\>', "W")
+vnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
+nnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
 inoremap <buffer> <silent> " "=g:MatchemMatchStart()
 inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
 inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
@@ -268,8 +271,11 @@ inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
 inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
 inoremap <buffer> <silent> { {=g:MatchemMatchStart()
 inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
+setlocal keymap=
+setlocal noarabic
 setlocal noautoindent
 setlocal backupcopy=
+setlocal balloonexpr=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
@@ -281,10 +287,12 @@ setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*%s*/
+setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
+setlocal commentstring=\"%s
 setlocal complete=.,w,b,u,t,i
-setlocal completefunc=VjdeCompletionFun
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#CompleteFunc
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -295,9 +303,9 @@ setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal noexpandtab
-if &filetype != ''
-setlocal filetype=
+setlocal expandtab
+if &filetype != 'vim'
+setlocal filetype=vim
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -316,14 +324,14 @@ setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
-setlocal imsearch=0
+setlocal imsearch=-1
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal indentexpr=GetVimIndent()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\,0=\"\\\ 
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
+setlocal keywordprg=:help
 setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
@@ -344,11 +352,13 @@ setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
 setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
 setlocal noscrollbind
-setlocal shiftwidth=8
+setlocal shiftwidth=4
 setlocal noshortname
 setlocal signcolumn=auto
-setlocal nosmartindent
+setlocal smartindent
 setlocal softtabstop=0
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
@@ -356,24 +366,36 @@ setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
-setlocal swapfile
+setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != ''
-setlocal syntax=
+if &syntax != 'vim'
+setlocal syntax=vim
 endif
 setlocal tabstop=4
 setlocal tagcase=
 setlocal tags=
-setlocal textwidth=0
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=78
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 125 - ((3 * winheight(0) + 34) / 69)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+125
+normal! 0
 tabnext 1
-if exists('s:wipebuf')
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf

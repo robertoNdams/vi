@@ -1,6 +1,7 @@
 set nocompatible              " be iMproved, required
 "set paste
-filetype off                  " required
+filetype off 
+filetype plugin on " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -48,7 +49,7 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'oplatek/conque-shell'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'benmills/vimux'
-Plugin 'klen/python-mode'
+" Plugin 'klen/python-mode'
 Plugin 'james9909/stackanswers.vim'
 Plugin 'manasthakur/vimsessionist'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
@@ -87,10 +88,8 @@ Plugin 'henrik/vim-reveal-in-finder'
 Plugin 'mileszs/ack.vim'
 Plugin 'chuckfairy/nerdtree-reveal'
 Plugin 'vim-nerdtree_plugin_open'
-Plugin 'shougo/deoplete.nvim'
 Plugin 'whatyouhide/vim-gotham'
 Plugin 'joonty/vim-do'
-Plugin 'fatih/vim-go'
 Plugin 'wokalski/autocomplete-flow'
 Plugin 'nsf/gocode'
 Plugin 'xolox/vim-misc'
@@ -105,7 +104,6 @@ Plugin 'phongvcao/vim-stardict'
 Plugin 'ironcamel/vim-script-runner'
 Plugin 'nojhan/liquidprompt'
 Plugin 'ngthanhtrung23/vim-extended-bash'
-Plugin 'zchee/deoplete-docker'
 Plugin 'breuckelen/vim-resize'
 Plugin 'romgrk/winteract.vim'
 Plugin 'guicolorscheme.vim'
@@ -126,6 +124,82 @@ Plugin 'wesleyche/srcexpl'
 Plugin 'taglist.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'tweekmonster/impsort.vim'
+Plugin 'dbsr/vimpy'
+Plugin 'tudorprodan/pyfinder.vim'
+Plugin 'sethwoodworth/vim-cute-python'
+Plugin 'benzheren/vim-python'
+Plugin 'romanofski/programslice.vim'
+Plugin 'rjohnsondev/vim-compiler-go'
+Plugin 'timonv/vim-cargo'
+Plugin 'andrewradev/splitjoin.vim'
+Plugin 'kabbamine/zeavim.vim'
+Plugin 'shougo/echodoc'
+Plugin 'kiteco/plugins'
+Plugin 'nvie/vim-flake8'
+Plugin 'tmhedberg/simpylfold'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'ambv/black'
+Plugin 'lervag/vimtex'
+Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'AutoComplPop'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'fisadev/vim-isort'
+
+" python 
+ let g:vim_isort_map = '<C-i>'
+
+" go 
+ set autowrite
+ let g:go_list_type = "quickfix"
+ let g:go_test_timeout = '10s'
+ let g:go_textobj_include_function_doc = 1
+ let g:go_highlight_types = 1
+ let g:go_auto_type_info = 1
+ let g:go_highlight_functions = 1
+ let g:go_highlight_methods = 1
+ let g:go_highlight_structs = 1
+ let g:go_highlight_operators = 1
+ let g:go_term_enabled = 1
+ let g:go_highlight_build_constraints = 1
+ let g:golang_goroot = "/usr/local/Cellar/go/1.10.3/libexec"
+ let g:go_textobj_include_function_doc = 1
+ "let g:golang_goroot = "/Users/ges/go"
+ let g:go_fmt_command = "goimports"
+ let g:go_metalinter_autosave = 1 
+ let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck', 'varcheck', 'gosimple', 'staticcheck']
+ let g:go_def_mode = "godef"
+ let g:golang_inline_highlight = 1 
+
+" program slice
+let g:programslice_cmd = "/usr/local/bin/programslice"
+let g:programslice_debug_file = "/tmp/programslice.debug"
+let g:programslice_disable_version_check = 1
+
+set tabstop=4 expandtab shiftwidth=4 softtabstop=4
+autocmd FileType python map <buffer> <C-s> :call flake8#Flake8()<CR>
+let g:livepreview_previewer = 'preview'
+let g:livepreview_engine = 'pdflatex'
+let g:html5_event_handler_attributes_complete = 0
+let g:html5_rdfa_attributes_complete = 0
+let g:html5_microdata_attributes_complete = 0
+let g:html5_aria_attributes_complete = 0
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+set encoding=utf-8
+let g:pyflakes_prefer_python_version = 3
+let g:SimpylFold_docstring_preview = 1 " zc close ; zo open 
+let g:indent_guides_enable_on_vim_startup = 1
+autocmd BufWritePre   *.py execute ':Black' 
 
 " Source explorer
 " // The switch of the Source Explorer 
@@ -230,6 +304,9 @@ autocmd BufWritePost *.cpp,*.h,*.c,*.* call UpdateTags()
 "let g:instant_markdown_slow = 1
 "let g:instant_markdown_allow_unsafe_content = 1
 
+" Sorts
+let g:vimpy_prompt_resolve = 1
+let g:vimpy_remove_unused = 1
 
 " Conf for fzf
  set rtp+=/usr/local/opt/fzf
@@ -243,19 +320,21 @@ autocmd BufWritePost *.cpp,*.h,*.c,*.* call UpdateTags()
  set nowritebackup
  set smartindent
  set shiftwidth=4
+ set expandtab 
+ set splitbelow
+ set splitright
  set shiftround
  set ignorecase
  set showmode
  set t_Co=256
  set ruler
  
- set shiftwidth=4
  set smarttab
  
 " syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -298,6 +377,8 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Rust
 let g:rust_clip_command = 'pbcopy'
+let g:rustfmt_autosave = 1
+let g:cargo_command = "/Users/ges/.cargo/bin/cargo"
 set hidden
 let g:racer_cmd = "/Users/ges/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
@@ -521,6 +602,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let NERDTreeShowLineNumbers=1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let g:ycm_python_binary_path = '/usr/local/bin/python3.6'
+let g:ycm_python_binary_path = '/usr/local/bin/python3.7'
 "let g:ycm_scala_binary_path = 'scala'
 map  <C-n> :tabnew<CR>

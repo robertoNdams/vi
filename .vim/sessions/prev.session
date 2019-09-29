@@ -4,7 +4,6 @@ let s:cpo_save=&cpo
 set cpo&vim
 imap <Nul> <C-Space>
 inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <silent> <expr> <Plug>_ deoplete#mapping#_dummy_complete()
 inoremap <silent> <F10> :silent call Run(&ft)
 inoremap <C-F11> :Maximize
 inoremap <F11> :Fullscreen
@@ -41,7 +40,10 @@ nnoremap <silent> <NL> :TmuxNavigateDown
 nnoremap <silent>  :TmuxNavigateUp
 nnoremap <silent>  :TmuxNavigateRight
 map  :NERDTreeToggle
-map  :tabnew
+xnoremap <silent>  :call multiple_cursors#new("v", 0)
+nnoremap <silent>  :call multiple_cursors#new("n", 1)
+smap  :tabnew
+omap  :tabnew
 map  :NERDTreeFind
 nnoremap <silent>  :CtrlP
 snoremap  "_c
@@ -68,6 +70,10 @@ nmap \kpvc :VikubePVCList
 nmap \kpo :VikubePodList
 nmap \kno :VikubeNodeList
 nmap \kc :VikubeContextList
+nmap <silent> \ig <Plug>IndentGuidesToggle
+nmap \\z <Plug>ZVKeyDocset
+vmap \z <Plug>ZVVisSelection
+nmap \z <Plug>Zeavim
 nmap \ihn :IHN
 nmap \is :IHS:A
 nmap \ih :IHS
@@ -103,15 +109,21 @@ nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
+xnoremap <silent> gî :call multiple_cursors#select_all("v", 0)
+nnoremap <silent> gî :call multiple_cursors#select_all("n", 0)
+xnoremap <silent> g :call multiple_cursors#new("v", 0)
+nnoremap <silent> g :call multiple_cursors#new("n", 0)
+nmap gz <Plug>ZVOperator
 xmap gS <Plug>VgSurround
 nmap ySS <Plug>YSsurround
 nmap ySs <Plug>YSsurround
 nmap yss <Plug>Yssurround
 nmap yS <Plug>YSurround
 nmap ys <Plug>Ysurround
-nnoremap <SNR>221_: :=v:count ? v:count : ''
+nnoremap <SNR>193_: :=v:count ? v:count : ''
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
+nmap <Plug>ZVMotion <Plug>ZVOperator
 nnoremap <silent> <C-Right> :CmdResizeRight
 nnoremap <silent> <C-Up> :CmdResizeUp
 nnoremap <silent> <C-Down> :CmdResizeDown
@@ -190,6 +202,8 @@ inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-[>")
 inoremap " ""<Left>
 inoremap ' ''<Left>
 inoremap ( ()<Left>
+xnoremap <silent> î :call multiple_cursors#select_all("v", 0)
+nnoremap <silent> î :call multiple_cursors#select_all("n", 1)
 inoremap [ []<Left>
 imap \ihn :IHN
 imap \is :IHS:A
@@ -205,13 +219,16 @@ cabbr shx call Run('bash')
 cabbr sx call Run(&ft)
 let &cpo=s:cpo_save
 unlet s:cpo_save
+set autowrite
 set background=dark
 set backspace=indent,eol,start
 set backup
-set completeopt=menuone,longest,preview
+set completefunc=youcompleteme#CompleteFunc
+set completeopt=menuone,preview
 set cpoptions=aAceFsB
+set encoding=utf-8
+set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
-set helplang=en
 set hidden
 set history=100
 set hlsearch
@@ -220,16 +237,18 @@ set incsearch
 set laststatus=2
 set mouse=a
 set omnifunc=syntaxcomplete#Complete
+set pyxversion=3
 set ruler
-set runtimepath=~/.vim,~/.vim/pack/plugins/start/vim-go,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/command-t,~/.vim/bundle/sparkup/vim/,~/.vim/bundle/newL9,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-json,~/.vim/bundle/vim-snippets,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/vim-lawrencium,~/.vim/bundle/tagbar,~/.vim/bundle/vim-signify,~/.vim/bundle/gundo.vim,~/.vim/bundle/vim-sleuth,~/.vim/bundle/vim-surround,~/.vim/bundle/nerdcommenter,~/.vim/bundle/open-browser.vim,~/.vim/bundle/a.vim,~/.vim/bundle/molokai,~/.vim/bundle/vim-colorschemes,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-markdown-preview,~/.vim/bundle/conque-shell,~/.vim/bundle/vim-tmux-navigator,~/.vim/bundle/vimux,~/.vim/bundle/python-mode,~/.vim/bundle/stackanswers.vim,~/.vim/bundle/vimsessionist,~/.vim/bundle/vim-tmux-focus-events,~/.vim/bundle/sessionman.vim,~/.vim/bundle/vim-websearch,~/.vim/bundle/Command-T,~/.vim/bundle/quickmenu.vim,~/.vim/bundle/vimterm,~/.vim/bundle/unite.vim,~/.vim/bundle/
-set shell=bash\ -i
+set runtimepath=~/.vim,~/.vim/pack/plugins/start/vim-go,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/command-t,~/.vim/bundle/sparkup/vim/,~/.vim/bundle/newL9,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-json,~/.vim/bundle/vim-snippets,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/vim-lawrencium,~/.vim/bundle/tagbar,~/.vim/bundle/vim-signify,~/.vim/bundle/gundo.vim,~/.vim/bundle/vim-sleuth,~/.vim/bundle/vim-surround,~/.vim/bundle/nerdcommenter,~/.vim/bundle/open-browser.vim,~/.vim/bundle/a.vim,~/.vim/bundle/molokai,~/.vim/bundle/vim-colorschemes,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-markdown-preview,~/.vim/bundle/conque-shell,~/.vim/bundle/vim-tmux-navigator,~/.vim/bundle/vimux,~/.vim/bundle/stackanswers.vim,~/.vim/bundle/vimsessionist,~/.vim/bundle/vim-tmux-focus-events,~/.vim/bundle/sessionman.vim,~/.vim/bundle/vim-websearch,~/.vim/bundle/Command-T,~/.vim/bundle/quickmenu.vim,~/.vim/bundle/vimterm,~/.vim/bundle/unite.vim,~/.vim/bundle/vim-autoswap,~/.vim/bundle
 set shiftround
 set shiftwidth=4
 set shortmess=filnxtToOc
 set showcmd
 set smartindent
 set smarttab
-set statusline=%#warningmsg#%{SyntasticStatuslineFlag()}%*
+set softtabstop=4
+set splitbelow
+set splitright
 set noswapfile
 set tabstop=4
 set title
@@ -238,35 +257,31 @@ let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/Work/aftech-product/datatask/install-cluster
+cd ~/Work/Clients/amaury/git-amaury
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 README.md
+badd +0 .git/MERGE_MSG
 argglobal
 silent! argdel *
-edit README.md
+edit .git/MERGE_MSG
 set splitbelow splitright
-set nosplitbelow
-set nosplitright
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-map <buffer>  :call Vim_Markdown_Preview_Local()
 let s:cpo_save=&cpo
 set cpo&vim
-imap <buffer>  <Plug>SparkupExecute
-imap <buffer>  <Plug>SparkupNext
+cnoremap <buffer> <expr> <Plug><cfile> fugitive#StatusCfile()
+vnoremap <buffer> 	 :py3 isort_visual()
+cmap <buffer> <silent>  <Plug><cfile>
 inoremap <buffer> <silent> " "=g:MatchemMatchStart()
 inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
 inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
 inoremap <buffer> <silent> ) =g:MatchemMatchEnd(")")
-inoremap <buffer> <silent> < <=g:MatchemMatchStart()
-inoremap <buffer> <silent> > =g:MatchemMatchEnd(">")
 inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
 inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
 inoremap <buffer> <silent> { {=g:MatchemMatchStart()
@@ -289,12 +304,12 @@ setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=fb:*,fb:-,fb:+,n:>
-setlocal commentstring=>\ %s
+setlocal comments=:#
+setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
-setlocal completefunc=
+setlocal completefunc=youcompleteme#CompleteFunc
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -305,9 +320,9 @@ setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal noexpandtab
-if &filetype != 'markdown'
-setlocal filetype=markdown
+setlocal expandtab
+if &filetype != 'gitcommit'
+setlocal filetype=gitcommit
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -319,36 +334,37 @@ setlocal foldmarker={{{,}}}
 setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
-setlocal foldtext=foldtext()
+set foldtext=fugitive#Foldtext()
+setlocal foldtext=fugitive#Foldtext()
 setlocal formatexpr=
-setlocal formatoptions=tcqln
-setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\|^[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:
+setlocal formatoptions=tl
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
 setlocal include=
-setlocal includeexpr=
+setlocal includeexpr=substitute(v:fname,'^[^/]\\+/','','')
 setlocal indentexpr=
 setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
+setlocal keywordprg=git\ --git-dir='/Users/ges/Work/Clients/amaury/git-amaury/.git'\ show
 setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
 setlocal nolist
 setlocal makeencoding=
 setlocal makeprg=
-setlocal matchpairs=(:),{:},[:],<:>
-setlocal modeline
+setlocal matchpairs=(:),{:},[:]
+setlocal nomodeline
 setlocal modifiable
 setlocal nrformats=bin,octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=htmlcomplete#CompleteTags
-setlocal path=
+setlocal omnifunc=syntaxcomplete#Complete
+setlocal path=~/Work/Clients/amaury/git-amaury/.git,~/Work/Clients/amaury/git-amaury,
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
@@ -361,7 +377,7 @@ setlocal shiftwidth=4
 setlocal noshortname
 setlocal signcolumn=auto
 setlocal smartindent
-setlocal softtabstop=0
+setlocal softtabstop=4
 setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
@@ -370,16 +386,16 @@ setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'markdown'
-setlocal syntax=markdown
+if &syntax != 'gitcommit'
+setlocal syntax=gitcommit
 endif
-setlocal tabstop=4
+setlocal tabstop=8
 setlocal tagcase=
 setlocal tags=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=0
+setlocal textwidth=72
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
@@ -390,12 +406,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 23) / 47)
+let s:l = 1 - ((0 * winheight(0) + 5) / 10)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
-normal! 014|
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf

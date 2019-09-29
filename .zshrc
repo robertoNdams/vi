@@ -7,7 +7,7 @@ export ZSH=/Users/ges/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="tonotdo"	
+ZSH_THEME="random"	
 
 # Uncomment the following line to use case-sensitive completion.
  CASE_SENSITIVE="true"
@@ -51,7 +51,7 @@ ZSH_THEME="tonotdo"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git maven vagrant tmux vim) 
+plugins=(git kubectl gatsby vagrant tmux) 
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,5 +100,11 @@ export PATH="$PATH:$HOME/.rvm/bin"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export GOPATH=/Users/ges/go
-export PATH="$HOME/.cargo/bin:$PATH"
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export PATH="/opt/local/bin:/opt/local/sbin:$HOME/.cargo/bin:$PATH"
+export PATH=$GOPATH/bin/:$PATH
+eval "$(rbenv init -)"
+export PATH="/usr/local/opt/llvm@6/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export CC=gcc
+export PATH="/opt/protoc/bin:$PATH"
+export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH"

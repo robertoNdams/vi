@@ -107,4 +107,5 @@ export PATH="/usr/local/opt/llvm@6/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export CC=gcc
 export PATH="/opt/protoc/bin:$PATH"
-export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
+export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH" 
+source ~/.minikube-completion

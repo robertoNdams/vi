@@ -1,5 +1,4 @@
 set nocompatible              " be iMproved, required
-"set paste
 filetype off 
 filetype plugin on " required
 
@@ -32,9 +31,8 @@ Plugin 'bling/vim-airline'
 Plugin 'Sirver/ultisnips'
 Plugin 'elzr/vim-json'
 Plugin 'honza/vim-snippets'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
-Plugin 'majutsushi/tagbar'
 Plugin 'mhinz/vim-signify'
 Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-sleuth'
@@ -49,7 +47,7 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'oplatek/conque-shell'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'benmills/vimux'
-" Plugin 'klen/python-mode'
+Plugin 'klen/python-mode'
 Plugin 'james9909/stackanswers.vim'
 Plugin 'manasthakur/vimsessionist'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
@@ -125,7 +123,7 @@ Plugin 'taglist.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'tweekmonster/impsort.vim'
-Plugin 'dbsr/vimpy'
+"Plugin 'dbsr/vimpy'
 Plugin 'tudorprodan/pyfinder.vim'
 Plugin 'sethwoodworth/vim-cute-python'
 Plugin 'benzheren/vim-python'
@@ -148,9 +146,49 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'AutoComplPop'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'fisadev/vim-isort'
+Plugin 'koturn/resizewin.vim'
+Plugin 'christianrondeau/vim-base64'
+"Plugin 'hsitz/pyscratch'
+Plugin 'nickaroot/vim-xcode-dark-theme'
+"Plugin 'kevinhui/vim-docker-tools'
+Plugin 'skanehira/docker.vim'
+Plugin 'mhinz/vim-startify'
+Plugin 'gcmt/taboo.vim'
+Plugin 'ryanoasis/nerd-fonts'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'mortonfox/nerdtree-term'
+Plugin 'ryanoasis/vim-devicons'
+
+" config docker 
+let g:docker_plugin_version_check = 0
+let g:docker_open_browser_cmd = 'open'
+let g:docker_terminal_open = 'bo'
+let s:docker_auth_file = expand('~/.docker/config.json')
+let g:docker_registry_auth = json_decode(join(readfile(s:docker_auth_file), "\n"))
+
+" drag vim split with mouse inside tmux  
+ set ttymouse=xterm2
 
 " python 
  let g:vim_isort_map = '<C-i>'
+ let g:pymode_python = 'python3'
+ let g:pymode_options = 1
+ let g:pymode_trim_whitespaces = 1
+ let g:pymode_preview_height = &previewheight
+ let g:pymode_preview_position = 'botright'
+ let g:pymode_doc = 1
+ let g:pymode_lint = 1
+ let g:pymode_lint_on_write = 1
+ let g:pymode_lint_message = 1
+ let g:pymode_rope = 1
+ let g:pymode_rope_show_doc_bind = '<C-c>d'
+ let g:pymode_rope_complete_on_dot = 1
+ let g:pymode_rope_autoimport = 1
+ let g:pymode_rope_goto_definition_bind = '<C-c>g'
+ let g:pymode_rope_goto_definition_cmd = 'new'
+ let g:pymode_rope_rename_bind = '<C-c>rr'
+ 
+ 
 
 " go 
  set autowrite
@@ -180,7 +218,7 @@ let g:programslice_debug_file = "/tmp/programslice.debug"
 let g:programslice_disable_version_check = 1
 
 set tabstop=4 expandtab shiftwidth=4 softtabstop=4
-autocmd FileType python map <buffer> <C-s> :call flake8#Flake8()<CR>
+"autocmd FileType python map <buffer> <C-s> :call flake8#Flake8()<CR>
 let g:livepreview_previewer = 'preview'
 let g:livepreview_engine = 'pdflatex'
 let g:html5_event_handler_attributes_complete = 0
@@ -195,11 +233,22 @@ augroup javascript_folding
     au FileType javascript setlocal foldmethod=syntax
 augroup END
 
-set encoding=utf-8
+set encoding=UTF-8
 let g:pyflakes_prefer_python_version = 3
 let g:SimpylFold_docstring_preview = 1 " zc close ; zo open 
 let g:indent_guides_enable_on_vim_startup = 1
 autocmd BufWritePre   *.py execute ':Black' 
+autocmd BufWritePost *.py call flake8#Flake8()
+let g:syntastic_python_checkers = ['pylint']
+"let g:flake8_show_in_file = 1
+"let g:flake8_cmd= "/usr/local/bin/flake8"
+"let g:flake8_quickfix_location="topleft"
+"let g:flake8_quickfix_height=30
+"let g:flake8_show_quickfix=1 
+"let g:flake8_show_in_gutter=1
+"let g:flake8_max_markers=500
+
+
 
 " Source explorer
 " // The switch of the Source Explorer 
@@ -271,34 +320,34 @@ let g:SrcExpl_nextDefKey = "<c-n>"
 "         ...
 let winManagerWindowLayout = 'FileExplorer|BufExplorer'    "just file and buf exp.
 " TagList definitions
-let Tlist_Show_Menu = 1
-let Tlist_Show_One_File = 1
-let Tlist_Process_File_Always = 1
-let Tlist_Auto_Open = 1
-let Tlist_Display_Prototype = 1
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Show_Menu = 1
-let Tlist_Use_SingleClick = 1
-let Tlist_WinWidth = 50
-function! DelTagOfFile(file)
-  let fullpath = a:file
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let f = substitute(fullpath, cwd . "/", "", "")
-  let f = escape(f, './')
-  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
-  let resp = system(cmd)
-endfunction
+"let Tlist_Show_Menu = 1
+"let Tlist_Show_One_File = 1
+"let Tlist_Process_File_Always = 1
+"let Tlist_Auto_Open = 1
+"let Tlist_Display_Prototype = 1
+"let Tlist_GainFocus_On_ToggleOpen = 1
+"let Tlist_Show_Menu = 1
+"let Tlist_Use_SingleClick = 1
+"let Tlist_WinWidth = 50
+"function! DelTagOfFile(file)
+"  let fullpath = a:file
+"  let cwd = getcwd()
+"  let tagfilename = cwd . "/tags"
+"  let f = substitute(fullpath, cwd . "/", "", "")
+"  let f = escape(f, './')
+"  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
+"  let resp = system(cmd)
+"endfunction
 
-function! UpdateTags()
-  let f = expand("%:p")
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let cmd = 'ctags -a -f ' . tagfilename . ' --c++-kinds=+p --fields=+iaS --extra=+q ' . '"' . f . '"'
-  call DelTagOfFile(f)
-  let resp = system(cmd)
-endfunction
-autocmd BufWritePost *.cpp,*.h,*.c,*.* call UpdateTags()
+"function! UpdateTags()
+"  let f = expand("%:p")
+"  let cwd = getcwd()
+"  let tagfilename = cwd . "/tags"
+"  let cmd = 'ctags -a -f ' . tagfilename . ' --c++-kinds=+p --fields=+iaS --extra=+q ' . '"' . f . '"'
+"  call DelTagOfFile(f)
+"  let resp = system(cmd)
+"endfunction
+"autocmd BufWritePost *.cpp,*.h,*.c,*.* call UpdateTags()
 
 " markdown config
 "let g:instant_markdown_slow = 1
@@ -313,6 +362,8 @@ let g:vimpy_remove_unused = 1
 
 " Setup vim config
 
+ set runtimepath^=~/.vim/bundle/ctrlp.vim
+ set sessionoptions+=tabpages,globals
  set nobackup 
  set noswapfile 
  set noundofile
@@ -332,9 +383,9 @@ let g:vimpy_remove_unused = 1
  set smarttab
  
 " syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -528,11 +579,13 @@ endif
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
   syntax on
-  colorscheme CodeFactoryv3 
+  "colorscheme xcode_dark
+  colorscheme tender  
   "colorscheme codedark
   "let g:airline_theme = 'codedark'
   set hlsearch
 endif
+
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -602,6 +655,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let NERDTreeShowLineNumbers=1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let g:ycm_python_binary_path = '/usr/local/bin/python3.7'
+let g:ycm_python_binary_path = '/usr/bin/python'
 "let g:ycm_scala_binary_path = 'scala'
 map  <C-n> :tabnew<CR>

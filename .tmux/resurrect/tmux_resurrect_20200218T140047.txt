@@ -1,0 +1,13 @@
+pane	amaury	0	:amauryprocess	0	:-	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim
+pane	amaury	0	:amauryprocess	0	:-	1	:/Users/ges	1	zsh	:
+pane	amaury	0	:amauryprocess	0	:-	2	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	zsh	:zsh
+pane	amaury	1	:migration	1	:*	0	:/Users/ges/Work/Clients/amaury/migration/flux-gcp/apiRunnerNumeo	0	vim	:vim
+pane	amaury	1	:migration	1	:*	1	:/Users/ges	0	zsh	:
+pane	amaury	1	:migration	1	:*	2	:/Users/ges/Work/Clients/amaury/migration/flux-gcp	1	zsh	:
+pane	amaury	2	:checkpy	0	:	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim checking.py
+pane	amaury	2	:checkpy	0	:	1	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	1	Python	:/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/Resources/Python.app/Contents/MacOS/Python /usr/local/bin/vd check.csv
+pane	amaury	2	:checkpy	0	:	2	:/Users/ges	0	zsh	:
+window	amaury	0	0	:-	d76b,318x66,0,0{186x66,0,0,0,131x66,187,0[131x32,187,0,1,131x33,187,33,6]}
+window	amaury	1	1	:*	f9d2,318x66,0,0{190x66,0,0,9,127x66,191,0[127x37,191,0,10,127x28,191,38,12]}
+window	amaury	2	0	:	4379,318x66,0,0{158x66,0,0,13,159x66,159,0[159x14,159,0,14,159x51,159,15,15]}
+state	amaury	

@@ -1,0 +1,13 @@
+pane	amaury	0	:amauryprocess	1	:*	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim
+pane	amaury	0	:amauryprocess	1	:*	1	:/Users/ges	0	Python	:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python -S /Users/ges/google-cloud-sdk/lib/gcloud.py beta compute --project xiti-project-001 ssh --zone europe-west1-d amrprdcron01
+pane	amaury	0	:amauryprocess	1	:*	2	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	1	zsh	:zsh
+pane	amaury	1	:migration	0	:	0	:/Users/ges/Work/Clients/amaury/migration	1	vim	:vim
+pane	amaury	1	:migration	0	:	1	:/Users/ges	0	vim	:vim /Users/ges/Downloads/dev-apiconfig.yaml
+pane	amaury	1	:migration	0	:	2	:/Users/ges	0	zsh	:
+pane	amaury	2	:checkpy	0	:-	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim checking.py
+pane	amaury	2	:checkpy	0	:-	1	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	1	Python	:/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/Resources/Python.app/Contents/MacOS/Python /usr/local/bin/vd check.csv
+pane	amaury	2	:checkpy	0	:-	2	:/Users/ges	0	zsh	:
+window	amaury	0	1	:*	32da,339x81,0,0{197x81,0,0,0,141x81,198,0[141x40,198,0,1,141x40,198,41,6]}
+window	amaury	1	0	:	d97a,339x81,0,0{201x81,0,0,9,137x81,202,0[137x45,202,0,10,137x35,202,46,12]}
+window	amaury	2	0	:-	ee39,339x81,0,0{169x81,0,0,13,169x81,170,0[169x22,170,0,14,169x58,170,23,15]}
+state	amaury	

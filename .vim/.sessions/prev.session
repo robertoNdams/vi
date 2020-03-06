@@ -2,8 +2,11 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-imap <Nul> <C-Space>
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+noremap! <silent> <Plug>(resizewin-full) :FullSize
+noremap! <silent> <Plug>(resizewin-expand-x) :ResizeWinEX
+noremap! <silent> <Plug>(resizewin-contract-y) :ResizeWinCY
+noremap! <silent> <Plug>(resizewin-expand-y) :ResizeWinEY
+noremap! <silent> <Plug>(resizewin-contract-x) :ResizeWinCX
 inoremap <silent> <F10> :silent call Run(&ft)
 inoremap <C-F11> :Maximize
 inoremap <F11> :Fullscreen
@@ -14,8 +17,8 @@ inoremap <silent> <C-Down> =g:MatchemRepeatFixupFlush("<c-down>")<C-Down>
 inoremap <silent> <S-Right> =g:MatchemRepeatFixupFlush("<s-right>")<S-Right>
 inoremap <silent> <End> =g:MatchemRepeatFixupFlush("<end>")<End>
 inoremap <silent> <PageDown> =g:MatchemRepeatFixupFlush("<pagedown>")<PageDown>
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
+inoremap <silent> <Up> =g:MatchemRepeatFixupFlush("<up>")<Up>
+inoremap <silent> <Down> =g:MatchemRepeatFixupFlush("<down>")<Down>
 inoremap <silent> <Right> =g:MatchemRepeatFixupFlush("<right>")<Right>
 inoremap <silent> <S-Up> =g:MatchemRepeatFixupFlush("<s-up>")<S-Up>
 inoremap <silent> <C-Right> =g:MatchemRepeatFixupFlush("<c-right>")<C-Right>
@@ -45,7 +48,7 @@ nnoremap <silent>  :call multiple_cursors#new("n", 1)
 smap  :tabnew
 omap  :tabnew
 map  :NERDTreeFind
-nnoremap <silent>  :CtrlP
+map  <Plug>(ctrlp)
 snoremap  "_c
 nmap  :SrcExplToggle 
 nmap  :NERDTreeoggle
@@ -54,7 +57,7 @@ nmap ;n :call ToggleNerdTree()
 map Q gq
 nnoremap SD :!rm /Users/ges/.vim/.sessions/
 nnoremap SL :!ls /Users/ges/.vim/.sessions
-nnoremap SO :source /Users/ges/.vim/.sessions/
+nnoremap SO :call Sessionist#OpenSession()
 nnoremap SP :call Sessionist#PreviousSession()
 nnoremap SC :call Sessionist#CurrentSession()
 nnoremap SS :call Sessionist#SaveSession()
@@ -62,7 +65,6 @@ nnoremap SN :call Sessionist#NewSession()
 xmap S <Plug>VSurround
 nmap [C 9999[c
 nmap [c <Plug>(signify-prev-hunk)
-nnoremap \d :YcmShowDetailedDiagnostic
 nmap \kt :VikubeTop
 nmap \ksvc :VikubeServiceList
 nmap \kpv :VikubePVList
@@ -70,6 +72,10 @@ nmap \kpvc :VikubePVCList
 nmap \kpo :VikubePodList
 nmap \kno :VikubeNodeList
 nmap \kc :VikubeContextList
+nnoremap \atob/ :%s/\v()/\=base64#decode(submatch(1))/<Home><Right><Right><Right><Right><Right><Right>
+nnoremap \btoa/ :%s/\v()/\=base64#encode(submatch(1))/<Home><Right><Right><Right><Right><Right><Right>
+vnoremap <silent> \btoa :call base64#v_btoa()
+vnoremap <silent> \atob :call base64#v_atob()
 nmap <silent> \ig <Plug>IndentGuidesToggle
 nmap \\z <Plug>ZVKeyDocset
 vmap \z <Plug>ZVVisSelection
@@ -120,9 +126,16 @@ nmap ySs <Plug>YSsurround
 nmap yss <Plug>Yssurround
 nmap yS <Plug>YSurround
 nmap ys <Plug>Ysurround
-nnoremap <SNR>193_: :=v:count ? v:count : ''
+nnoremap <SNR>236_: :=v:count ? v:count : ''
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
+nnoremap <silent> <Plug>(ctrlp) :CtrlP
+nnoremap <silent> <Plug>(startify-open-buffers) :call startify#open_buffers()
+noremap <silent> <Plug>(resizewin-full) :FullSize
+noremap <silent> <Plug>(resizewin-expand-x) :ResizeWinEX
+noremap <silent> <Plug>(resizewin-contract-y) :ResizeWinCY
+noremap <silent> <Plug>(resizewin-expand-y) :ResizeWinEY
+noremap <silent> <Plug>(resizewin-contract-x) :ResizeWinCX
 nmap <Plug>ZVMotion <Plug>ZVOperator
 nnoremap <silent> <C-Right> :CmdResizeRight
 nnoremap <silent> <C-Up> :CmdResizeUp
@@ -191,7 +204,6 @@ inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-c>")
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-g>")
 imap S <Plug>ISurround
 imap s <Plug>Isurround
-inoremap <expr> 	 pumvisible() ? "\" : "\	"
 inoremap <silent>  =g:MatchemExpandCr(1)
 inoremap <silent>  =g:MatchemRepeatFixupFlush("<c-o>")
 imap  <Plug>Isurround
@@ -223,12 +235,10 @@ set autowrite
 set background=dark
 set backspace=indent,eol,start
 set backup
-set completefunc=youcompleteme#CompleteFunc
-set completeopt=menuone,preview
-set cpoptions=aAceFsB
-set encoding=utf-8
+set completeopt=longest,menuone,longest,preview
 set expandtab
 set fileencodings=ucs-bom,utf-8,default,latin1
+set helplang=en
 set hidden
 set history=100
 set hlsearch
@@ -239,34 +249,241 @@ set mouse=a
 set omnifunc=syntaxcomplete#Complete
 set pyxversion=3
 set ruler
-set runtimepath=~/.vim,~/.vim/pack/plugins/start/vim-go,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/command-t,~/.vim/bundle/sparkup/vim/,~/.vim/bundle/newL9,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-json,~/.vim/bundle/vim-snippets,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/vim-lawrencium,~/.vim/bundle/tagbar,~/.vim/bundle/vim-signify,~/.vim/bundle/gundo.vim,~/.vim/bundle/vim-sleuth,~/.vim/bundle/vim-surround,~/.vim/bundle/nerdcommenter,~/.vim/bundle/open-browser.vim,~/.vim/bundle/a.vim,~/.vim/bundle/molokai,~/.vim/bundle/vim-colorschemes,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-markdown-preview,~/.vim/bundle/conque-shell,~/.vim/bundle/vim-tmux-navigator,~/.vim/bundle/vimux,~/.vim/bundle/stackanswers.vim,~/.vim/bundle/vimsessionist,~/.vim/bundle/vim-tmux-focus-events,~/.vim/bundle/sessionman.vim,~/.vim/bundle/vim-websearch,~/.vim/bundle/Command-T,~/.vim/bundle/quickmenu.vim,~/.vim/bundle/vimterm,~/.vim/bundle/unite.vim,~/.vim/bundle/vim-autoswap,~/.vim/bundle
+set runtimepath=~/.vim,~/.vim/pack/plugins/start/vim-go,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-fugitive,~/.vim/bundle/command-t,~/.vim/bundle/sparkup/vim/,~/.vim/bundle/newL9,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-json,~/.vim/bundle/vim-snippets,~/.vim/bundle/vim-lawrencium,~/.vim/bundle/vim-signify,~/.vim/bundle/gundo.vim,~/.vim/bundle/vim-sleuth,~/.vim/bundle/vim-surround,~/.vim/bundle/nerdcommenter,~/.vim/bundle/open-browser.vim,~/.vim/bundle/a.vim,~/.vim/bundle/molokai,~/.vim/bundle/vim-colorschemes,~/.vim/bundle/nerdtree,~/.vim/bundle/vim-markdown-preview,~/.vim/bundle/conque-shell,~/.vim/bundle/vim-tmux-navigator,~/.vim/bundle/vimux,~/.vim/bundle/python-mode,~/.vim/bundle/stackanswers.vim,~/.vim/bundle/vimsessionist,~/.vim/bundle/vim-tmux-focus-events,~/.vim/bundle/sessionman.vim,~/.vim/bundle/vim-websearch,~/.vim/bundle/Command-T,~/.vim/bundle/quickmenu.vim,~/.vim/bundle/vimterm,~/.vim/bundle/unite.vim,~/.vim/bundle/vim-autoswap,~/.vim/bundle/vim-eunuch,~/.vim/
+set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,terminal,tabpages,globals
 set shiftround
 set shiftwidth=4
-set shortmess=filnxtToOc
+set shortmess=filnxtToOI
 set showcmd
 set smartindent
 set smarttab
 set softtabstop=4
 set splitbelow
 set splitright
+set statusline=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 set noswapfile
+set tabline=%!TabooTabline()
 set tabstop=4
 set title
+set updatetime=200
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
+let NERDTreeMapPreviewSplit = "gi"
+let NERDTreeShowHidden = "0"
+let Tlist_Show_One_File =  0 
+let NERDTreeMinimalUI =  1 
+let NERDUsePlaceHolders = "1"
+let WebDevIconsNerdTreeGitPluginForceVAlign =  1 
+let NERDTreeRespectWildIgnore = "0"
+let NERDTreeMapToggleHidden = "I"
+let NERDTreeWinSize =  62 
+let UltiSnipsRemoveSelectModeMappings =  1 
+let MatchemExpandCr =  1 
+let ConqueTerm_PyExe = ""
+let NERDTreeMapMenu = "m"
+let NERDTreeMapJumpParent = "p"
+let WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ""
+let NERDTreeAutoCenter = "1"
+let BASH_MapLeader = ""
+let NERDTreeShowBookmarks = "0"
+let NERDTreeMouseMode = "1"
+let NERDTreeCreatePrefix = "silent"
+let ConqueTerm_InsertCharPre =  0 
+let NERDTreeShowGitStatus =  1 
+let NERDTreeMapOpenSplit = "i"
+let ZF_nerdtree_menu_quit_loaded =  1 
+let NERDTreeHighlightCursorline = "1"
+let UltiSnipsExpandTrigger = "<c-Space>"
+let Tlist_GainFocus_On_ToggleOpen =  0 
+let ConqueTerm_CloseOnEnd =  0 
+let NERDCreateDefaultMappings = "1"
+let ConqueTerm_InsertOnEnter =  0 
+let NERDTreeMapPreviewVSplit = "gs"
+let ConqueTerm_ToggleKey = "<F8>"
+let NERDTreeMapJumpRoot = "P"
+let NERDTreeGlyphReadOnly = "RO"
+let NERDTreeMapRefreshRoot = "R"
+let NERDTreeCascadeOpenSingleChildDir = "1"
+let NERDTreeMapOpenVSplit = "s"
+let NERDTrimTrailingWhitespace =  1 
+let NERDTreeMapDeleteBookmark = "D"
+let NERDTreeAutoCenterThreshold = "3"
+let UltiSnipsEditSplit = "vertical"
+let ConqueTerm_TERM = "vt100"
+let ConqueTerm_PromptRegex = "^\\w\\+@[0-9A-Za-z_.-]\\+:[0-9A-Za-z_./\\~,:-]\\+\\$"
+let BASH_Dictionary_File = "/Users/ges/.vim/bundle/bash-support.vim/bash-support/wordlists/bash-keywords.list"
+let NERDTreeMapJumpFirstChild = "K"
+let CMP_Recurse_Limit =  0 
+let NERDTreeMapToggleBookmarks = "B"
+let WebDevIconsTabAirLineBeforeGlyphPadding = " "
+let Tlist_Sort_Type = "order"
+let Tlist_Compact_Format =  0 
+let ConqueTerm_SendFileKey = "<F10>"
+let ConqueTerm_SendFunctionKeys =  0 
+let NERDTreeBookmarksFile = "/Users/ges/.NERDTreeBookmarks"
+let UltiSnipsJumpForwardTrigger = "<c-y>"
+let HiCursorWords_hiGroupRegexp = ""
+let Tlist_Ctags_Cmd = "ctags"
+let SrcExpl_gobackKey = "<SPACE>"
+let Taboo_tabs = ""
+let SrcExpl_updateTagsKey = "<F12>"
+let NERDTreeDirArrowExpandable = "▸"
+let WebDevIconsUnicodeDecorateFileNodes =  1 
+let NERDCommentEmptyLines =  1 
+let MatchemExpandNl =  1 
+let MatchemRepeatFixup =  1 
+let Tlist_Display_Tag_Scope =  1 
+let NERDTreeMapOpenInTabSilent = "T"
+let NERDTreeMapHelp = "?"
+let ZF_nerdtree_menu_copypath_loaded =  1 
+let NERDTreeMapJumpPrevSibling = "<C-q>"
+let NERDDefaultNesting = "1"
+let NERDTreeMapOpenInTab = "t"
+let NERDTreeChDirMode = "0"
+let Tlist_Highlight_Tag_On_BufEnter =  1 
+let ConqueTerm_CodePage =  0 
+let NERDTreeShowFiles = "1"
+let HiCursorWords_delay =  200 
+let ConqueTerm_StartMessages =  1 
+let NERDTreeHijackNetrw =  0 
+let Tlist_Max_Submenu_Items =  20 
+let NERDTreeBookmarksSort = "1"
+let ConqueTerm_ExecFileKey = "<F11>"
+let HiCursorWords_debugEchoHiName =  0 
+let UltiSnipsJumpBackwardTrigger = "<c-z>"
+let NERDTreeMapToggleFilters = "f"
+let SrcExpl_winHeight =  8 
+let Tlist_WinWidth =  30 
+let WebDevIconsUnicodeDecorateFolderNodesSymlinkSymbol = ""
+let NERDBlockComIgnoreEmpty = "0"
+let Tlist_Close_On_Select =  0 
+let Tlist_File_Fold_Auto_Close =  0 
+let NERDDisableTabsInBlockComm = "0"
+let NERDTreeUpdateOnCursorHold =  1 
+let DevIconsDefaultFolderOpenSymbol = ""
+let BASH_Version = "4.2.1"
+let SrcExpl_isUpdateTags =  0 
+let NERDTreeSortDirs = "1"
+let NERDTreeMapToggleFiles = "F"
+let NERDAllowAnyVisualDelims = "1"
+let ConqueTerm_Idx =  0 
+let NERDTreeMapOpenRecursively = "O"
+let NERDTreeMapUpdirKeepOpen = "U"
+let Tlist_Show_Menu =  0 
+let NERDTreeMapCloseChildren = "X"
+let Tlist_Use_SingleClick =  0 
+let UltiSnipsUsePythonVersion =  3 
+let NERDTreeMapCloseDir = "x"
+let NERDTreeSortHiddenFirst = "1"
+let SrcExpl_jumpKey = "<ENTER>"
+let UltiSnipsEnableSnipMate =  1 
+let NERDTreeAutoDeleteBuffer =  0 
+let ZF_nerdtree_menu_quit_shortcut = "q"
+let DevIconsEnableFoldersOpenClose =  0 
+let Tlist_Enable_Fold_Column =  1 
+let NERDTreeMapPreview = "<C-h>"
+let NERDTreeCascadeSingleChildDir = "1"
+let DevIconsEnableFolderPatternMatching =  1 
+let NERDTreeShowIgnoredStatus =  0 
+let SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+let MatchemEndOfLineMapping =  0 
+let TagList_title = "__Tag_List__"
+let WebDevIconsTabAirLineAfterGlyphPadding = ""
+let NERDMenuMode = "3"
+let NERDTreeRemoveDirCmd = "rm -rf "
+let NERDToggleCheckAllLines =  1 
+let NERDTreeCaseSensitiveSort = "0"
+let SrcExpl_searchLocalDef =  1 
+let ConqueTerm_PyVersion =  2 
+let NERDTreeMapPrevHunk = "[c"
+let NERDTreeMapRefresh = "r"
+let WebDevIconsUnicodeByteOrderMarkerDefaultSymbol = ""
+let WebDevIconsNerdTreeBeforeGlyphPadding = " "
+let DevIconsAppendArtifactFix =  0 
+let NERDDefaultAlign = "right"
+let WebDevIconsUnicodeDecorateFolderNodes =  1 
+let NERDTreeMapNextHunk = "]c"
+let WebDevIconsUnicodeGlyphDoubleWidth =  1 
+let WebDevIconsUnicodeDecorateFolderNodesExactMatches =  1 
+let Tlist_Exit_OnlyWindow =  0 
+let Tlist_Max_Tag_Length =  10 
+let BASH_CodeSnippets = "/Users/ges/.vim/bundle/bash-support.vim/bash-support/codesnippets/"
+let UltiSnipsListSnippets = "<c-tab>"
+let Tlist_Auto_Open =  0 
+let WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ""
+let SrcExpl_nestedAutoCmd =  1 
+let ConqueTerm_SendVisKey = "<F9>"
+let NERDTreeMapChangeRoot = "C"
+let NERDCompactSexyComs =  1 
+let DevIconsEnableFolderExtensionPatternMatching =  0 
+let ConqueTerm_CWInsert =  0 
+let NERDTreeMapOpenExpl = "e"
+let ConqueTerm_EscKey = "<Esc>"
+let ConqueTerm_Color =  1 
+let ConqueTerm_Version =  230 
+let Tlist_Auto_Highlight_Tag =  1 
+let NERDTreeShowLineNumbers =  1 
+let SrcExpl_refreshTime =  100 
+let Tlist_Use_Horiz_Window =  0 
+let WebDevIconsNerdTreeAfterGlyphPadding = " "
+let Tlist_Process_File_Always =  0 
+let ConqueTerm_ColorMode = ""
+let NERDTreeNotificationThreshold = "100"
+let NERDTreeMapActivateNode = "<C-o>"
+let NERDTreeWinPos = "left"
+let NERDTreeStatusline = "%{exists('b:NERDTree')?b:NERDTree.root.path.str():''}"
+let ConqueTerm_FastMode =  0 
+let NERDTreeNodeDelimiter = " "
+let DevIconsArtifactFixChar = " "
+let SimpylFold_docstring_preview =  1 
+let Tlist_Auto_Update =  1 
+let NERDSpaceDelims =  1 
+let SrcExpl_prevDefKey = "<c-p>"
+let NERDAltDelims_java =  1 
+let NERDLPlace = "[>"
+let Tlist_WinHeight =  10 
+let NERDRemoveExtraSpaces = "0"
+let Tlist_Inc_Winwidth =  1 
+let NERDTreeMapCWD = "CD"
+let NERDTreeNaturalSort = "0"
+let NERDTreeMapUpdir = "u"
+let NERDCommentWholeLinesInVMode = "0"
+let MatchemMaxMatchSearchDepth =  100 
+let NERDTreeMapChdir = "cd"
+let NERDRPlace = "<]"
+let NERDTreeMapToggleZoom = "A"
+let NERDTreeMarkBookmarks = "1"
+let Tlist_Display_Prototype =  0 
+let NERDTreeUpdateOnWrite =  1 
+let NERDRemoveAltComs = "1"
+let NERDTreeMapJumpLastChild = "J"
+let ConqueTerm_ReadUnfocused =  0 
+let NERDTreeMapJumpNextSibling = "<C-s>"
+let NERDTreeCopyCmd = "cp -r "
+let NERDTreeMapQuit = "q"
+let ConqueTerm_SessionSupport =  0 
+let NERDTreeDirArrows =  1 
+let NERDTreeToggle = "<C-m>"
+let Tlist_Use_Right_Window =  0 
+let NERDTreeDirArrowCollapsible = "▾"
+let DevIconsEnableNERDTreeRedraw =  0 
+let SrcExpl_nextDefKey = "<c-n>"
+let ConqueTerm_Loaded =  1 
+let ConqueTerm_Syntax = "conque_term"
+let NERDTreeQuitOnOpen = "0"
 silent only
 silent tabonly
-cd ~/Work/Clients/amaury/git-amaury
+cd ~/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 .git/MERGE_MSG
+badd +0 ~/.oh-my-zsh/plugins/vagrant/vagrant.plugin.zsh
 argglobal
 silent! argdel *
-$argadd .git/MERGE_MSG
-edit .git/MERGE_MSG
+$argadd ~/.oh-my-zsh/plugins/vagrant/vagrant.plugin.zsh
+edit ~/.oh-my-zsh/plugins/vagrant/vagrant.plugin.zsh
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -274,11 +491,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-let s:cpo_save=&cpo
-set cpo&vim
-cnoremap <buffer> <expr> <Plug><cfile> fugitive#StatusCfile()
 vnoremap <buffer> 	 :py3 isort_visual()
-cmap <buffer> <silent>  <Plug><cfile>
 inoremap <buffer> <silent> " "=g:MatchemMatchStart()
 inoremap <buffer> <silent> ' '=g:MatchemMatchStart()
 inoremap <buffer> <silent> ( (=g:MatchemMatchStart()
@@ -287,8 +500,6 @@ inoremap <buffer> <silent> [ [=g:MatchemMatchStart()
 inoremap <buffer> <silent> ] =g:MatchemMatchEnd("]")
 inoremap <buffer> <silent> { {=g:MatchemMatchStart()
 inoremap <buffer> <silent> } =g:MatchemMatchEnd("}")
-let &cpo=s:cpo_save
-unlet s:cpo_save
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -310,7 +521,7 @@ setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
-setlocal completefunc=youcompleteme#CompleteFunc
+setlocal completefunc=
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -322,8 +533,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'gitcommit'
-setlocal filetype=gitcommit
+if &filetype != 'zsh'
+setlocal filetype=zsh
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -335,22 +546,21 @@ setlocal foldmarker={{{,}}}
 setlocal foldmethod=manual
 setlocal foldminlines=1
 setlocal foldnestmax=20
-set foldtext=fugitive#Foldtext()
-setlocal foldtext=fugitive#Foldtext()
+setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=tl
+setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
 setlocal include=
-setlocal includeexpr=substitute(v:fname,'^[^/]\\+/','','')
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal includeexpr=
+setlocal indentexpr=GetShIndent()
+setlocal indentkeys=0{,0},!^F,o,O,e,=then,=do,=else,=elif,=esac,=fi,=fin,=fil,=done
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=git\ --git-dir='/Users/ges/Work/Clients/amaury/git-amaury/.git'\ show
+setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
@@ -358,14 +568,14 @@ setlocal nolist
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
-setlocal nomodeline
+setlocal modeline
 setlocal modifiable
 setlocal nrformats=bin,octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
 setlocal omnifunc=syntaxcomplete#Complete
-setlocal path=~/Work/Clients/amaury/git-amaury/.git,~/Work/Clients/amaury/git-amaury,
+setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
@@ -387,16 +597,16 @@ setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'gitcommit'
-setlocal syntax=gitcommit
+if &syntax != 'zsh'
+setlocal syntax=zsh
 endif
-setlocal tabstop=8
+setlocal tabstop=4
 setlocal tagcase=
 setlocal tags=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=72
+setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
@@ -407,7 +617,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 5) / 10)
+let s:l = 1 - ((0 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -418,7 +628,7 @@ if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=1 winwidth=20 shortmess=filnxtToOc
+set winheight=1 winwidth=20 shortmess=filnxtToOI
 set winminheight=1 winminwidth=1
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if file_readable(s:sx)

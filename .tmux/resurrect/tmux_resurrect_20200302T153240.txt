@@ -1,0 +1,23 @@
+pane	aftechprod	0	:amauryprocess	1	:*	0	:/Users/ges/Work/aftech-product/datatask/datalab/rstudioproxy	0	vim	:zsh
+pane	aftechprod	0	:amauryprocess	1	:*	1	:/Users/ges/Work/aftech-product/datatask/install-cluster/init_cluster	0	zsh	:kubectl proxy
+pane	aftechprod	0	:amauryprocess	1	:*	2	:/Users/ges/Work/aftech-product/datatask/datalab	0	zsh	:
+pane	aftechprod	0	:amauryprocess	1	:*	3	:/Users/ges/Work/aftech-product/datatask/install-cluster/init_cluster	1	kubectl	:zsh
+pane	aftechprod	0	:amauryprocess	1	:*	4	:/Users/ges/Work/aftech-product/datatask/datalab	0	zsh	:zsh
+/opt/local/Library/Frameworks/Python.framework/Versions/3.7/Resources/Python.app/Contents/MacOS/Python /Users/ges/Library/Python/3.7/bin/openstack
+pane	aftechprod	1	:migration	0	:-	0	:/Users/ges/Work/aftech-product/datatask/install-cluster/init_cluster	1	zsh	:
+pane	aftechprod	1	:migration	0	:-	1	:/Users/ges	0	zsh	:
+pane	amaury	0	:amauryprocess	0	:	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim
+pane	amaury	0	:amauryprocess	0	:	1	:/Users/ges	0	zsh	:
+pane	amaury	0	:amauryprocess	0	:	2	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	1	zsh	:zsh
+pane	amaury	1	:migration	0	:-	0	:/Users/ges/Work/Clients/amaury/migration/flux-gcp/apiRunnerDailymotion	0	vim	:vim apiRunnerDailymotion
+pane	amaury	1	:migration	0	:-	1	:/Users/ges	0	vim	:vim .vimrc
+pane	amaury	1	:migration	0	:-	2	:/Users/ges/Work/Clients/amaury/migration/flux-gcp/apiRunnerDailymotion	1	zsh	:
+pane	amaury	2	:checkpy	1	:*	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim checking.py
+pane	amaury	2	:checkpy	1	:*	1	:/Users/ges	0	zsh	:
+pane	amaury	2	:checkpy	1	:*	2	:/Users/ges	1	zsh	:
+window	aftechprod	0	1	:*	7720,318x66,0,0{174x66,0,0[174x46,0,0,16,174x19,0,47{52x19,0,47,18,121x19,53,47,22}],143x66,175,0[143x32,175,0,17,143x33,175,33,19]}
+window	aftechprod	1	0	:-	a21b,318x66,0,0{237x66,0,0,20,80x66,238,0,24}
+window	amaury	0	0	:	0a54,339x80,0,0{196x80,0,0,0,142x80,197,0[142x41,197,0,1,142x38,197,42,6]}
+window	amaury	1	0	:-	527e,339x80,0,0{200x80,0,0,9,138x80,201,0[138x46,201,0,10,138x33,201,47,12]}
+window	amaury	2	1	:*	0fc0,339x80,0,0{168x80,0,0,13,170x80,169,0[170x24,169,0,14,170x55,169,25,15]}
+state	aftechprod	amaury

@@ -1,0 +1,13 @@
+pane	amaury	0	:amauryprocess	0	:	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim
+pane	amaury	0	:amauryprocess	0	:	1	:/Users/ges	1	zsh	:
+pane	amaury	0	:amauryprocess	0	:	2	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	zsh	:zsh
+pane	amaury	1	:migration	1	:*	0	:/Users/ges/Work/Clients/amaury/migration/flux-gcp	1	vim	:vim
+pane	amaury	1	:migration	1	:*	1	:/Users/ges	0	zsh	:
+pane	amaury	1	:migration	1	:*	2	:/Users/ges/Work/Clients/amaury/migration/flux-gcp/apiRunnerNumeo/code	0	zsh	:
+pane	amaury	2	:checkpy	0	:-	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	1	vim	:vim checking.py
+pane	amaury	2	:checkpy	0	:-	1	:/Users/ges	0	zsh	:
+pane	amaury	2	:checkpy	0	:-	2	:/Users/ges	0	vim	:vim .vimrc
+window	amaury	0	0	:	8980,339x84,0,0{197x84,0,0,0,141x84,198,0[141x42,198,0,1,141x41,198,43,6]}
+window	amaury	1	1	:*	772c,339x84,0,0{201x84,0,0,9,137x84,202,0[137x47,202,0,10,137x36,202,48,12]}
+window	amaury	2	0	:-	c5ea,339x84,0,0{169x84,0,0,13,169x84,170,0[169x24,170,0,14,169x59,170,25,15]}
+state	amaury	

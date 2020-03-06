@@ -1,0 +1,21 @@
+pane	aftechprod	0	:zsh	1	:*	0	:/Users/ges/Work/aftech-product/datatask	0	vim	:zsh
+pane	aftechprod	0	:zsh	1	:*	1	:/Users/ges/Work/aftech-product/datatask	0	zsh	:kubectl proxy
+pane	aftechprod	0	:zsh	1	:*	2	:/Users/ges/Work/aftech-product/datatask/install-cluster/init_cluster/registry	0	zsh	:zsh
+pane	aftechprod	0	:zsh	1	:*	3	:/Users/ges/Work/aftech-product/datatask/install-cluster/init_cluster	1	zsh	:zsh
+/opt/local/Library/Frameworks/Python.framework/Versions/3.7/Resources/Python.app/Contents/MacOS/Python /Users/ges/Library/Python/3.7/bin/openstack
+pane	aftechprod	1	:zsh	0	:-	0	:/Users/ges	1	zsh	:
+pane	amaury	0	:amauryprocess	0	:-	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim
+pane	amaury	0	:amauryprocess	0	:-	1	:/Users/ges	0	zsh	:
+pane	amaury	0	:amauryprocess	0	:-	2	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	1	zsh	:zsh
+pane	amaury	1	:migration	1	:*	0	:/Users/ges/Work/Clients/amaury/migration/flux-gcp/apiRunnerDailymotion	0	vim	:vim apiRunnerDailymotion
+pane	amaury	1	:migration	1	:*	1	:/Users/ges	0	vim	:vim .vimrc
+pane	amaury	1	:migration	1	:*	2	:/Users/ges/Work/Clients/amaury/migration/flux-gcp/apiRunnerDailymotion	1	zsh	:
+pane	amaury	2	:checkpy	0	:	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim checking.py
+pane	amaury	2	:checkpy	0	:	1	:/Users/ges	0	zsh	:
+pane	amaury	2	:checkpy	0	:	2	:/Users/ges	1	zsh	:
+window	aftechprod	0	1	:*	9441,318x70,0,0{176x70,0,0[176x48,0,0,16,176x21,0,49,18],141x70,177,0[141x34,177,0,17,141x35,177,35,19]}
+window	aftechprod	1	0	:-	daaf,318x70,0,0,20
+window	amaury	0	0	:-	0a54,339x80,0,0{196x80,0,0,0,142x80,197,0[142x41,197,0,1,142x38,197,42,6]}
+window	amaury	1	1	:*	527e,339x80,0,0{200x80,0,0,9,138x80,201,0[138x46,201,0,10,138x33,201,47,12]}
+window	amaury	2	0	:	0fc0,339x80,0,0{168x80,0,0,13,170x80,169,0[170x24,169,0,14,170x55,169,25,15]}
+state	aftechprod	

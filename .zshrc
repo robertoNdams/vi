@@ -51,7 +51,7 @@ ZSH_THEME="random"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git kubectl gatsby vagrant tmux) 
+plugins=(git kubectl gatsby tmux battery) 
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,4 +108,9 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 export CC=gcc
 export PATH="/opt/protoc/bin:$PATH"
 export PATH="/opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH" 
+export PATH="/Users/ges/Library/Python/3.7/bin:$PATH"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 source ~/.minikube-completion
+source ~/.az.completion 
+alias python=python3

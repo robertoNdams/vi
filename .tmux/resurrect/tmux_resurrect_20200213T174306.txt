@@ -1,0 +1,11 @@
+pane	amaury	0	:amauryprocess	1	:*	0	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	0	vim	:vim
+pane	amaury	0	:amauryprocess	1	:*	1	:/Users/ges	0	zsh	:
+pane	amaury	0	:amauryprocess	1	:*	2	:/Users/ges/Work/Clients/amaury/git-amaury/ArchitectureGCP/apiRunnerDailymotion	1	Python	:zsh
+pane	amaury	1	:migration	0	:-	0	:/Users/ges/Work/Clients/amaury/migration	1	vim	:vim
+pane	amaury	1	:migration	0	:-	1	:/Users/ges	0	less	:less /Users/ges/Downloads/apiconfig.yaml
+pane	amaury	1	:migration	0	:-	2	:/Users/ges	0	zsh	:
+pane	amaury	2	:zsh	0	:	0	:/Users/ges	1	zsh	:
+window	amaury	0	1	:*	34e1,318x66,0,0{153x66,0,0,0,164x66,154,0[164x33,154,0,1,164x32,154,34,6]}
+window	amaury	1	0	:-	01d3,318x66,0,0{190x66,0,0,9,127x66,191,0[127x38,191,0,10,127x27,191,39,12]}
+window	amaury	2	0	:	65b2,318x66,0,0,13
+state	amaury	
